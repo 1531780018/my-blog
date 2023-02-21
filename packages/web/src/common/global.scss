@@ -1,0 +1,15 @@
+.header {
+  width: 100%;
+
+  .logo {
+    width: 200px;
+    height: 60px;
+  }
+
+  .menu {
+    .menu-item {
+      margin: 0 10px;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@myblog/server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prisma:init": "npx prisma migrate dev --name init",
+    "dev": "nodemon ./src/app.ts"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.5",
+    "@types/koa-router": "^7.4.4",
+    "@types/node": "^18.13.0",
+    "prisma": "^4.10.1",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.10.1",
+    "colors": "^1.4.0",
+    "koa": "^2.14.1",
+    "koa-router": "^12.0.0",
+    "log4js": "^6.7.1",
+    "nodemon": "^2.0.20"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
