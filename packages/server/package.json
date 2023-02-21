@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prisma:init": "npx prisma migrate dev --name init",
+    "prisma:desk": "npx Prisma studio",
     "dev": "nodemon ./src/app.ts"
   },
   "devDependencies": {
