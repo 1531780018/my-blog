@@ -90,9 +90,9 @@ export const UserPanel: React.FC = () => {
 }
 // 关于
 export const UserAbout: React.FC = () => {
-  const aboutItemList = aboutList.map(item => {
+  const aboutItemList = aboutList.map((item, index) => {
     return (
-      <div className="border-b-2 border-dashed py-2 text-gray-500 border-pink-300 cursor-pointer	hover:text-pink-300" >{`${item.name} : ${item.number}`}</div>
+      <div className="border-b-2 border-dashed py-2 text-gray-500 border-pink-300 cursor-pointer	hover:text-pink-300" key={index}>{`${item.name} : ${item.number}`}</div>
     )
   })
   return (
@@ -103,9 +103,9 @@ export const UserAbout: React.FC = () => {
 }
 // 最近文章
 export const Previous: React.FC = () => {
-  const previousItemList = aboutList.map(item => {
+  const previousItemList = aboutList.map((item, index) => {
     return (
-      <div className="border-b-2 border-dashed py-2 text-gray-500 border-pink-300 cursor-pointer" >{`最新文章456456456456`}</div>
+      <div className="border-b-2 border-dashed py-2 text-gray-500 border-pink-300 cursor-pointer" key={index}>{`最新文章456456456456`}</div>
     )
   })
   return (
@@ -117,8 +117,8 @@ export const Previous: React.FC = () => {
 }
 // 统计
 export const Statistics: React.FC = () => {
-  const statusicsList = statistics.map(item => {
-    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500 ">{item.name} : {item.num}</div>)
+  const statusicsList = statistics.map((item, index) => {
+    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500 " key={index}>{item.name} : {item.num}</div>)
   })
   return (
     <div className="user-statistics p-4 rounded-lg shadow-lg mb-5 bg-white">
@@ -129,9 +129,9 @@ export const Statistics: React.FC = () => {
 }
 // 右侧
 // 分类
-export const Catalog: React.FC = () => {
-  const catelists = catelist.map(item => {
-    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300">{item.name} </div>)
+export const Catalog: React.FC<any> = (props) => {
+  const catelists = props.Cate.map((item: any, index: string) => {
+    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300" key={index}>{item.name} </div>)
   })
   return (
     <div className="userCate p-4 rounded-lg shadow-lg mb-5 bg-white">
@@ -154,8 +154,8 @@ export const Search: React.FC = () => {
 }
 // 友情链接
 export const LinkAge: React.FC = () => {
-  const catelists = catelist.map(item => {
-    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300"> 友情链接12312123 </div>)
+  const catelists = catelist.map((item, index) => {
+    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300" key={index}> 友情链接12312123 </div>)
   })
   return (
     <div className="userLinkAge p-4 rounded-lg shadow-lg mb-5 bg-white">
@@ -166,8 +166,8 @@ export const LinkAge: React.FC = () => {
 }
 // 最新留言
 export const Comments: React.FC = () => {
-  const catelists = catelist.map(item => {
-    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300"> 最新留言1123123123 </div>)
+  const catelists = catelist.map((item, index) => {
+    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300" key={index}> 最新留言1123123123 </div>)
   })
   return (
     <div className="userComments p-4 rounded-lg shadow-lg mb-5 bg-white">
@@ -177,13 +177,13 @@ export const Comments: React.FC = () => {
   )
 }
 
-let indexActive = 2
+let indexActive = 0
 let menuCatetabs = ['首页', '分类1', '分类2', '分类3', '分类4']
 //cateTabs
-export const CateTabs: React.FC = () => {
-  let list = menuCatetabs.map((item, index) => {
-    return (<div className={`cate-items w-16 text-center ${indexActive == index ? 'text-pink-300' : 'text-gray-500'} cursor-pointer hover:text-pink-300`} >
-      {item}
+export const CateTabs: React.FC<any> = (props) => {
+  let list = props.Cate.map((item: any, index: number) => {
+    return (<div className={`cate-items w-16 text-center ${indexActive == index ? 'text-pink-300' : 'text-gray-500'} cursor-pointer hover:text-pink-300`} key={index} >
+      {item.name}
     </div>)
   })
   return (

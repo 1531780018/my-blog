@@ -3,37 +3,37 @@
  * @Date: 2023-02-10 16:40:17
  * @LastEditors: Mowang
  * @Description: 
- * @FilePath: \My-blog\pages\router\router.tsx
+ * @FilePath: \newMylog\packages\web\src\router\router.tsx
  */
 import { lazy } from "react"
-import { RouteObject, useRoutes } from "react-router-dom"
-const LazyLoad = (to: string) => {
-  const Comp = lazy(() => import(to))
-  return (<Comp />)
+import { RouteObject, useRoutes, useLocation } from "react-router-dom"
+
+import DocumentTitle from 'react-document-title'
+
+const LazyLoad = (to: string, title: string) => {
+  const Comp = lazy(async () => await import(to))
+  return (<DocumentTitle title={`My - ${title}`}><Comp /></DocumentTitle>)
 }
 
 const routerList: RouteObject[] = [
   {
     path: '/',
-    element: LazyLoad('../views/home')
+    element: LazyLoad('../views/home', "首页")
+  },
+  {
+    path: '/aaa',
+    element: LazyLoad('../views/home', "一号分类")
   }
 ]
 
+
+
+
+
 const GetRouterALL = () => {
-  return (<div>{useRoutes(routerList)}</div>)
+
+  return (
+    <div>{useRoutes(routerList)}</div>
+  )
 }
 export default GetRouterALL;
-
-
-
-
-// const routerList: Routes[] = [
-//   {
-//     path: '/aaa',
-//     component: LazyLoad('../views/home'),
-//     meta: {
-//       title: "首页"
-//     }
-//   }
-// ]
-

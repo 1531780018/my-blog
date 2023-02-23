@@ -11,14 +11,16 @@ datasource db {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  title      String     @db.VarChar(255)
+  content    String?
+  published  Boolean    @default(false)
+  author     User       @relation(fields: [authorId], references: [id])
+  authorId   Int
+  categorize Categorize @relation(fields: [cateId], references: [id])
+  cateId     Int
 }
 
 model Profile {
@@ -42,4 +44,11 @@ model Home {
   id    Int    @id @default(autoincrement())
   title String @default("我的博客")
   url   String @default("http://loclahost")
+}
+
+model Categorize {
+  id   Int     @id @default(autoincrement())
+  name String?
+  desc String?
+  Post Post[]
 }

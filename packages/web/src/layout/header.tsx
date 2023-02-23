@@ -3,7 +3,7 @@
  * @Date: 2023-02-15 15:04:28
  * @LastEditors: Mowang
  * @Description: 
- * @FilePath: \My-blog\pages\layout\header.tsx
+ * @FilePath: \newMylog\packages\web\src\layout\header.tsx
  */
 import type { Menu } from '../typings/global'
 import "../common/global.scss"
@@ -25,7 +25,7 @@ const menu: Menu[] = [
 const NavList: React.FC = () => {
   const menuList = menu.map((item, index) => {
     return (
-      <div className='transition duration-500 ease-in-out menu-item rounded-lg w-20 text-center transform hover:bg-red-300 hover:rounded-lg hover:h-6 hover:w-20' onClick={() => { menuItemClick(item.name) }} >
+      <div className='transition duration-500 ease-in-out menu-item rounded-lg w-20 text-center transform hover:bg-red-300 hover:rounded-lg hover:h-6 hover:w-20' key={index} onClick={() => { menuItemClick(item.name) }}  >
         {item.title}
       </div>
     )
