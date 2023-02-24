@@ -21,6 +21,13 @@ model Post {
   authorId   Int
   categorize Categorize @relation(fields: [cateId], references: [id])
   cateId     Int
+  cover      String?    @db.VarChar(255)
+  tag        String?
+}
+
+model Tag {
+  id      Int    @id @default(autoincrement())
+  tagName String
 }
 
 model Profile {
@@ -38,6 +45,14 @@ model User {
   user_pic String   @default("https://www.avatar.bio/avatar/1531780018@qq.com?bc=DAF1FF&tc=555555&t=AU&s=48")
   posts    Post[]
   profile  Profile?
+}
+
+model Guestbook {
+  id      Int    @id @default(autoincrement())
+  name    String @unique
+  url     String @unique
+  email   String @unique
+  message String @unique
 }
 
 model Home {

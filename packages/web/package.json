@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "dev:css": "tailwindcss -o ./src/styles/tailwind.css --watch"
   },
   "keywords": [],
   "author": "",

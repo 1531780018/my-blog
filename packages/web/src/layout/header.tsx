@@ -7,6 +7,8 @@
  */
 import type { Menu } from '../typings/global'
 import "../common/global.scss"
+import { useNavigate } from 'react-router-dom'
+
 const Navbar: React.FC = () => {
   return (<div className='header flex flex-row  items-center  bg-red-200 shadow-xl'>
     <Logo />
@@ -16,23 +18,23 @@ const Navbar: React.FC = () => {
 
 const logoUrl: string = "https://www.wdssmq.com/zb_users/theme/acgMora/usr/logo.png"
 const menu: Menu[] = [
-  { icon: "", title: "首页", name: "home", href: "" },
-  { icon: "", title: "留言本", name: "guestbook", href: "" },
+  { icon: "", title: "首页", name: "home", href: "/" },
+  { icon: "", title: "留言本", name: "guestbook", href: "/guestBook" },
   { icon: "", title: "管理", name: "cmd", href: "" },
   { icon: "", title: "关于我", name: "about", href: "" }
 ]
 
 const NavList: React.FC = () => {
-  const menuList = menu.map((item, index) => {
-    return (
-      <div className='transition duration-500 ease-in-out menu-item rounded-lg w-20 text-center transform hover:bg-red-300 hover:rounded-lg hover:h-6 hover:w-20' key={index} onClick={() => { menuItemClick(item.name) }}  >
-        {item.title}
-      </div>
-    )
-  })
+  const navigate = useNavigate();
   return (
     <div className='menu flex flex-row'>
-      {menuList}
+      {menu.map((item, index) => {
+        return (
+          <div className='transition duration-500 ease-in-out menu-item rounded-lg w-20 text-center transform hover:bg-red-300 hover:rounded-lg hover:h-6 hover:w-20' key={index} onClick={() => { navigate(item.href); }}  >
+            {item.title}
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -45,7 +47,4 @@ const Logo: React.FC = () => {
   )
 }
 
-const menuItemClick = (name: string) => {
-  alert(name)
-}
 export default Navbar

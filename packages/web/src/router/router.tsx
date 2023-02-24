@@ -5,35 +5,36 @@
  * @Description: 
  * @FilePath: \newMylog\packages\web\src\router\router.tsx
  */
-import { lazy } from "react"
-import { RouteObject, useRoutes, useLocation } from "react-router-dom"
-
+import React, { lazy } from 'react'
+import { RouteObject, useRoutes, } from "react-router-dom"
+import { LazyLoad } from "../common/utils/utils"
 import DocumentTitle from 'react-document-title'
 
-const LazyLoad = (to: string, title: string) => {
-  const Comp = lazy(async () => await import(to))
-  return (<DocumentTitle title={`My - ${title}`}><Comp /></DocumentTitle>)
-}
+import GuestBook from '../views/guestBook'
+import Home from '../views/home'
+import Post from "../views/post"
+
+const HomeTitle = process.env.VITE_APP_TITLE
 
 const routerList: RouteObject[] = [
   {
     path: '/',
-    element: LazyLoad('../views/home', "首页")
+    element: <DocumentTitle title={`${HomeTitle} - 首页`}><Home /></DocumentTitle>
   },
   {
-    path: '/aaa',
-    element: LazyLoad('../views/home', "一号分类")
+    path: '/guestBook',
+    element: <DocumentTitle title={`${HomeTitle} - 留言板`}><GuestBook /></DocumentTitle>
+  },
+  {
+    path: '/post',
+    element: <DocumentTitle title={`${HomeTitle} - 详情页`}><Post /></DocumentTitle>
   }
 ]
 
 
-
-
-
 const GetRouterALL = () => {
-
   return (
-    <div>{useRoutes(routerList)}</div>
+    <div className='routerContent'>{useRoutes(routerList)}</div>
   )
 }
 export default GetRouterALL;

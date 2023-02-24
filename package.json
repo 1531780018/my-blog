@@ -8,7 +8,8 @@
     "prisma:desk": "pnpm -C ./packages/server prisma:desk",
     "start": "pnpm -r --filter=./packages/* dev",
     "dev:server": "pnpm -C ./packages/server dev",
-    "dev:web": "pnpm -C ./packages/web dev"
+    "dev:web": "pnpm -C ./packages/web dev",
+    "dev:css": "pnpm -C ./packages/web dev:css"
   },
   "keywords": [],
   "author": "",

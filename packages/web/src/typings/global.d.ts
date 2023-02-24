@@ -1,3 +1,10 @@
+/*
+ * @Author: Mowang
+ * @Date: 2023-02-20 21:14:28
+ * @LastEditors: Mowang
+ * @Description: 
+ * @FilePath: \newMylog\packages\web\src\typings\global.d.ts
+ */
 export declare interface Menu {
   icon: string
   title: string
@@ -23,10 +30,17 @@ export declare interface HttpGetResp<D> {
   msg: string
 }
 
-export declare interface IFetchData<D> {
-  url: String
-  xx: D
+
+export declare interface PostSelect {
+  cateId?: number // 分类ID
+  pageSize: number // 每页显示条数
+  pageCurr: number // 当前所在页码
+  search?: string // 搜索关键字
 }
-export declare interface IFetchDatas {
-  sb: String
+
+export declare interface ResPostPage {
+  pageCurr: number
+  pageSize: number
+  pageCount: number
+  pageList: Array
 }

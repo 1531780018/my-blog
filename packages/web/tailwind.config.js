@@ -1,13 +1,13 @@
 /*
  * @Author: Mowang
- * @Date: 2023-02-15 22:33:55
+ * @Date: 2023-02-25 00:53:11
  * @LastEditors: Mowang
  * @Description: 
- * @FilePath: \My-blog\tailwind.config.js
+ * @FilePath: \newMylog\packages\web\tailwind.config.js
  */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./pages/**/*.{ts,tsx,jsx,js}'],
+  content: ['./src/**/*.{ts,tsx,jsx,js}','./src/views/**/*.{ts,tsx,jsx,js}'],
   theme: {
     extend: {},
   },

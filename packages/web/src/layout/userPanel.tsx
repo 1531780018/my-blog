@@ -177,8 +177,7 @@ export const Comments: React.FC = () => {
   )
 }
 
-let indexActive = 0
-let menuCatetabs = ['首页', '分类1', '分类2', '分类3', '分类4']
+let indexActive = -1;
 //cateTabs
 export const CateTabs: React.FC<any> = (props) => {
   let list = props.Cate.map((item: any, index: number) => {
