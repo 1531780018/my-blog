@@ -19,3 +19,16 @@ export async function getAllFilesExport(filePath: string, callback: Function) {
     }
   })
 }
+
+interface DictItem {
+  key?: string
+  Value?: string
+}
+export async function getDictObj(arr: Array<DictItem>) {
+  let obj: any = {};
+  arr.forEach(item => {
+    obj[`${item.key}`] = item.Value
+  })
+  return obj
+
+}

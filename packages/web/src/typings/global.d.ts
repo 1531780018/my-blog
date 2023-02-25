@@ -20,7 +20,8 @@ export declare interface RespHome {
   home: object
   categorize: Array
   statis: object,
-  page: Array
+  page: Array,
+  contacts: Array
 }
 
 export declare interface HttpGetResp<D> {
@@ -43,4 +44,17 @@ export declare interface ResPostPage {
   pageSize: number
   pageCount: number
   pageList: Array
+}
+
+export declare interface IPost {
+  title: string // 文章标题
+  id: number // 文章id
+}
+export declare interface ICate {
+  name: string // 文章标题
+  id: number // 文章id
+}
+export declare interface IDict {
+  key: string // 文章标题
+  Value: number // 文章id
 }

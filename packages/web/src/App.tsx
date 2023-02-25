@@ -14,18 +14,19 @@ import GetFooter from './layout/footer';
 import { UserPanel, UserAbout, Previous, Statistics, Catalog, Search, Comments, LinkAge, CateTabs } from './layout/userPanel'
 import { getHome } from './BlogFetch/home'
 import { useQuery, UseQueryResult } from "react-query"
+import { Loading, Error } from './layout/comm'
 
 const App = () => {
   const { data, isLoading, error }: UseQueryResult<HttpGetResp<RespHome>> = useQuery('home', getHome)
   return (<div>{
-    isLoading ? <div>{"Loading..."}</div> : error ? <div>{"error"}</div> : <div className="none:container none:mx-auto bg-red-100">
+    isLoading ? <Loading /> : error ? <Error /> : <div className="none:container none:mx-auto bg-red-100">
       <Navbar />
       {/* 中心区域 */}
       <div className='main container mx-auto  my-8  flex  '>
         <div className='left-card w-60 flex-1'>
           <UserPanel />
-          <UserAbout />
-          <Previous />
+          <UserAbout Contacts={data?.data?.contacts} />
+          <Previous NewPost={data?.data?.page} />
           <Statistics />
         </div>
         <div className='w-3/6 mx-5'>
@@ -43,8 +44,6 @@ const App = () => {
       </div>
       <GetFooter />
     </div>
-
-
   }</div>)
 
 

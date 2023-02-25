@@ -1,23 +1,6 @@
+import { IPost, RespHome, ICate, IDict } from '../typings/global'
 const userPanelBg: string = "https://www.wdssmq.com/zb_users/theme/acgMora/style/img/pic.webp"
 const userPic: string = "https://www.avatar.bio/avatar/1531780018@qq.com?bc=DAF1FF&tc=555555&t=AU&s=48"
-
-const aboutList = [{
-  icon: "",
-  name: "QQ",
-  number: "1531780018"
-}, {
-  icon: "",
-  name: "QQ",
-  number: "1531780018"
-}, {
-  icon: "",
-  name: "QQ",
-  number: "1531780018"
-}, {
-  icon: "",
-  name: "QQ",
-  number: "1531780018"
-}]
 
 const statistics = [
   {
@@ -89,10 +72,10 @@ export const UserPanel: React.FC = () => {
   )
 }
 // 关于
-export const UserAbout: React.FC = () => {
-  const aboutItemList = aboutList.map((item, index) => {
+export const UserAbout: React.FC<RespHome["contacts"]> = (props) => {
+  const aboutItemList = props.Contacts.map((item: IDict, index: number) => {
     return (
-      <div className="border-b-2 border-dashed py-2 text-gray-500 border-pink-300 cursor-pointer	hover:text-pink-300" key={index}>{`${item.name} : ${item.number}`}</div>
+      <div className="border-b-2 border-dashed py-2 text-gray-500 border-pink-300 cursor-pointer	hover:text-pink-300" key={index}>{`${item.key} : ${item.Value}`}</div>
     )
   })
   return (
@@ -102,16 +85,18 @@ export const UserAbout: React.FC = () => {
   )
 }
 // 最近文章
-export const Previous: React.FC = () => {
-  const previousItemList = aboutList.map((item, index) => {
-    return (
-      <div className="border-b-2 border-dashed py-2 text-gray-500 border-pink-300 cursor-pointer" key={index}>{`最新文章456456456456`}</div>
-    )
-  })
+export const Previous: React.FC<RespHome["page"]> = (props) => {
   return (
     <div className="user-previous p-4 rounded-lg shadow-lg  mb-5 bg-white">
       <div>最近文章</div>
-      <div>{previousItemList} </div>
+      <div>{
+        props.NewPost.map((item: IPost, index: number) => {
+          return (
+            <div className="border-b-2 truncate border-dashed py-2 text-gray-500 border-pink-300 cursor-pointer hover:text-pink-300" key={index}>{`${item.title}`}</div>
+          )
+        })
+      }
+      </div>
     </div>
   )
 }
@@ -129,8 +114,8 @@ export const Statistics: React.FC = () => {
 }
 // 右侧
 // 分类
-export const Catalog: React.FC<any> = (props) => {
-  const catelists = props.Cate.map((item: any, index: string) => {
+export const Catalog: React.FC<RespHome['categorize']> = (props) => {
+  const catelists = props.Cate.map((item: ICate, index: string) => {
     return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300" key={index}>{item.name} </div>)
   })
   return (
@@ -179,8 +164,8 @@ export const Comments: React.FC = () => {
 
 let indexActive = -1;
 //cateTabs
-export const CateTabs: React.FC<any> = (props) => {
-  let list = props.Cate.map((item: any, index: number) => {
+export const CateTabs: React.FC<RespHome['categorize']> = (props) => {
+  let list = props.Cate.map((item: ICate, index: number) => {
     return (<div className={`cate-items w-16 text-center ${indexActive == index ? 'text-pink-300' : 'text-gray-500'} cursor-pointer hover:text-pink-300`} key={index} >
       {item.name}
     </div>)

@@ -55,10 +55,11 @@ model Guestbook {
   message String @unique
 }
 
-model Home {
+model System {
   id    Int    @id @default(autoincrement())
-  title String @default("我的博客")
-  url   String @default("http://loclahost")
+  key   String @default("我的博客")
+  Value String @default("http://loclahost")
+  class String
 }
 
 model Categorize {
