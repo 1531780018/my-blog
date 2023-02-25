@@ -33,9 +33,9 @@ export declare interface HttpGetResp<D> {
 
 
 export declare interface PostSelect {
-  cateId?: number // 分类ID
-  pageSize: number // 每页显示条数
-  pageCurr: number // 当前所在页码
+  cateId?: number | string // 分类ID
+  pageSize: number | string // 每页显示条数
+  pageCurr: number | string // 当前所在页码
   search?: string // 搜索关键字
 }
 
@@ -49,6 +49,8 @@ export declare interface ResPostPage {
 export declare interface IPost {
   title: string // 文章标题
   id: number // 文章id
+  cover: string // 文章封面图
+  author: any
 }
 export declare interface ICate {
   name: string // 文章标题

@@ -723,6 +723,10 @@ video {
   white-space: nowrap;
 }
 
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+}
+
 .break-all {
   word-break: break-all;
 }

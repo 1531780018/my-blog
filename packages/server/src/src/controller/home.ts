@@ -7,7 +7,7 @@
  */
 
 import prisma from "../config/prismaConfig"
-import { HttpGetResp, RespHome, PageResult } from "@myblog/web/src/typings/global"
+import { HttpGetResp, RespHome, PageResult, PostSelect } from "@myblog/web/src/typings/global"
 import { getDictObj } from '../../comm/uitls'
 
 const postPage = async (skip: number, take: number): Promise<any> => {
@@ -20,9 +20,21 @@ const postPage = async (skip: number, take: number): Promise<any> => {
   })
 }
 
-export const GetPostQuery = async (page: number | string): Promise<HttpGetResp<PageResult>> => {
+export const GetPostQuery = async (data: PostSelect): Promise<HttpGetResp<PageResult>> => {
   const getPostCount = await prisma.post.count() // 获取文章总数
-  const pageResult = await postPage(0, 10)
+  const pageResult = await prisma.post.findMany({
+    skip: parseInt(data.pageCurr) || 0,
+    take: parseInt(data.pageSize) || 10,
+    where: {
+      cateId: data.cateId,
+      title: {
+        contains: data.search,
+      }
+    },
+    include: {
+      author: true,
+    },
+  })
   return {
     code: 200,
     msg: "查询成功",
@@ -56,7 +68,7 @@ export const GetHome = async (): Promise<HttpGetResp<RespHome>> => {
       data: {
         home: await getDictObj(getHome),
         categorize: getCate,
-        contacts:getContacts,
+        contacts: getContacts,
         statis: {
           postCount: getPostCount
         },

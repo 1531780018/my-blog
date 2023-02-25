@@ -166,7 +166,7 @@ let indexActive = -1;
 //cateTabs
 export const CateTabs: React.FC<RespHome['categorize']> = (props) => {
   let list = props.Cate.map((item: ICate, index: number) => {
-    return (<div className={`cate-items w-16 text-center ${indexActive == index ? 'text-pink-300' : 'text-gray-500'} cursor-pointer hover:text-pink-300`} key={index} >
+    return (<div onClick={() => props.onClickCate(item.id)} className={`cate-items w-16 text-center ${indexActive == index ? 'text-pink-300' : 'text-gray-500'} cursor-pointer hover:text-pink-300`} key={index} >
       {item.name}
     </div>)
   })

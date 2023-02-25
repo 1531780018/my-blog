@@ -9,7 +9,7 @@ import type { Menu } from '../typings/global'
 import "../common/global.scss"
 import { useNavigate } from 'react-router-dom'
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC = (props) => {
   return (<div className='header flex flex-row  items-center  bg-red-200 shadow-xl'>
     <Logo />
     <NavList />

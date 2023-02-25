@@ -15,9 +15,13 @@ import { UserPanel, UserAbout, Previous, Statistics, Catalog, Search, Comments, 
 import { getHome } from './BlogFetch/home'
 import { useQuery, UseQueryResult } from "react-query"
 import { Loading, Error } from './layout/comm'
+import { useEffect } from 'react';
 
 const App = () => {
-  const { data, isLoading, error }: UseQueryResult<HttpGetResp<RespHome>> = useQuery('home', getHome)
+  const hanlerClickCate = (id: number): void => {
+    alert(id)
+  }
+  const { data, isLoading, error }: UseQueryResult<HttpGetResp<RespHome>> = useQuery('home', () => { return getHome() })
   return (<div>{
     isLoading ? <Loading /> : error ? <Error /> : <div className="none:container none:mx-auto bg-red-100">
       <Navbar />
@@ -30,7 +34,7 @@ const App = () => {
           <Statistics />
         </div>
         <div className='w-3/6 mx-5'>
-          <CateTabs Cate={data?.data?.categorize} />
+          <CateTabs Cate={data?.data?.categorize} onClickCate={hanlerClickCate} />
           <div className='main-content  man-content-box'>
             <GetRouterALL />
           </div>
@@ -45,8 +49,8 @@ const App = () => {
       <GetFooter />
     </div>
   }</div>)
-
-
-
 }
+
+
+
 export default App
