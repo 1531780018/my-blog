@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "dev:css": "tailwindcss -o ./src/styles/tailwind.css --watch"
+    "dev:css": "tailwindcss -o ./src/styles/tailwind.css --watch",
+    "clean": "rm -rf node_modules"
   },
   "keywords": [],
   "author": "",
