@@ -10,6 +10,7 @@
     "dev:server": "pnpm -C ./packages/server dev",
     "dev:web": "pnpm -C ./packages/web dev",
     "dev:css": "pnpm -C ./packages/web dev:css",
+    "init": "pnpm -r --filter=./packages/* init:env",
     "clean": "rm -rf node_modules && pnpm -r --filter=./packages/* clean"
   },
   "keywords": [],

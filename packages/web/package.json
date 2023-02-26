@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:css": "tailwindcss -o ./src/styles/tailwind.css --watch",
+    "init:env": "cp -n .sample.env .env",
     "clean": "rm -rf node_modules"
   },
   "keywords": [],
