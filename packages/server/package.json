@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prisma:generate": "npx prisma generate",
     "prisma:init": "npx prisma migrate dev --name init",
     "prisma:desk": "npx Prisma studio",
+    "postinstall": "npm run prisma:generate",
     "dev": "nodemon ./src/app.ts",
     "init:env": "cp -n .sample.env .env",
     "clean": "rm -rf node_modules"
