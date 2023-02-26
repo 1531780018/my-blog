@@ -1,3 +1,10 @@
+/*
+ * @Author: Mowang
+ * @Date: 2023-02-26 13:41:41
+ * @LastEditors: Mowang
+ * @Description: 
+ * @FilePath: \newMylog\packages\server\src\api\home.ts
+ */
 import Application from 'koa';
 import Router from 'koa-router';
 import { GetHome, GetPostQuery } from '../src/controller/home';
@@ -12,9 +19,7 @@ router.get('/getHome', async (ctx: Application.ParameterizedContext) => {
 });
 
 router.get('/getPostPage', async (ctx: Application.ParameterizedContext) => {
-  const requestData: any = ctx.request.query;
-  console.log(123123, requestData);
-
+  const requestData: any = ctx.query;
   ctx.body = await GetPostQuery(requestData);
 });
 

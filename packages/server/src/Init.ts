@@ -9,6 +9,7 @@ import Koa from 'koa';
 import http from 'http';
 import path from 'path';
 import Router from 'koa-router';
+import koaBodyParser from "koa-bodyparser";
 import { getAllFilesExport } from './comm/uitls'
 import colors from 'colors';
 class Init {
@@ -17,8 +18,12 @@ class Init {
   public static initCore(app: Koa, server: http.Server) {
     Init.app = app;
     Init.server = server;
+    Init.initKoaBodyParser();
     Init.initLoadRouters();
   };
+  public static async initKoaBodyParser() {
+    Init.app.use(koaBodyParser());
+  }
   public static async initLoadRouters() {
     const dirPath = path.join(`${process.cwd()}/src/api/`);
     getAllFilesExport(dirPath, (file: Router) => {

@@ -16,8 +16,12 @@ import { IPost } from '../../typings/global'
 // 文章列表
 const Index = () => {
   const navigate = useNavigate()
-  const { data, isLoading, error }: UseQueryResult<HttpGetResp<PageResult>> = useQuery('page', () => { return getPostPage({ pageSize: 10, pageCurr: 1 }) })
-  console.log(data);
+  const { data, isLoading, error }: UseQueryResult<HttpGetResp<PageResult>> = useQuery('page', () => {
+    return getPostPage({
+      pageSize: 10, pageCurr: 1,
+    })
+  })
+  console.log(data?.data);
 
   return (
     <div className="postList">

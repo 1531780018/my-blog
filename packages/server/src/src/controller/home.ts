@@ -23,12 +23,14 @@ const postPage = async (skip: number, take: number): Promise<any> => {
 export const GetPostQuery = async (data: PostSelect): Promise<HttpGetResp<PageResult>> => {
   const pageCurr = data.pageCurr as string,
     pageSize = data.pageSize as string
+  console.log(data.cateId);
+
   const getPostCount = await prisma.post.count() // 获取文章总数
   const pageResult = await prisma.post.findMany({
     skip: parseInt(pageCurr) || 0,
     take: parseInt(pageSize) || 10,
     where: {
-      cateId: data.cateId,
+      cateId: data.cateId ?? undefined,
       title: {
         contains: data.search,
       }
