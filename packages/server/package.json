@@ -6,7 +6,9 @@
   "scripts": {
     "prisma:init": "npx prisma migrate dev --name init",
     "prisma:desk": "npx Prisma studio",
-    "dev": "nodemon ./src/app.ts"
+    "dev": "nodemon ./src/app.ts",
+    "init:env": "cp -n .sample.env .env",
+    "clean": "rm -rf node_modules"
   },
   "devDependencies": {
     "@types/koa": "^2.13.5",
