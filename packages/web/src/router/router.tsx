@@ -6,10 +6,8 @@
  * @FilePath: \newMylog\packages\web\src\router\router.tsx
  */
 import React, { lazy } from 'react'
-import { RouteObject, useRoutes, } from "react-router-dom"
-import { LazyLoad } from "../common/utils/utils"
+import { RouteObject, useRoutes, Navigate } from "react-router-dom"
 import DocumentTitle from 'react-document-title'
-
 import GuestBook from '../views/guestBook'
 import Home from '../views/home'
 import Post from "../views/post"
@@ -19,6 +17,16 @@ const HomeTitle = process.env.VITE_APP_TITLE
 const routerList: RouteObject[] = [
   {
     path: '/',
+    element: <Navigate to="/index"></Navigate>
+  },
+  {
+    path: '/aaa',
+    loader: () => {
+      return <Navigate to="/index"></Navigate>
+    }
+  },
+  {
+    path: '/index',
     element: <DocumentTitle title={`${HomeTitle} - 首页`}><Home /></DocumentTitle>
   },
   {

@@ -116,7 +116,7 @@ export const Statistics: React.FC = () => {
 // 分类
 export const Catalog: React.FC<RespHome['categorize']> = (props) => {
   const catelists = props.Cate.map((item: ICate, index: string) => {
-    return (<div className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300" key={index}>{item.name} </div>)
+    return (<div onClick={() => props.onClickCate(item.id)} className="py-2 border-b-2 border-dashed border-pink-300 text-gray-500  cursor-pointer hover:text-pink-300" key={index}>{item.name} </div>)
   })
   return (
     <div className="userCate p-4 rounded-lg shadow-lg mb-5 bg-white">
@@ -166,6 +166,8 @@ let indexActive = -1;
 //cateTabs
 export const CateTabs: React.FC<RespHome['categorize']> = (props) => {
   let list = props.Cate.map((item: ICate, index: number) => {
+
+
     return (<div onClick={() => props.onClickCate(item.id)} className={`cate-items w-16 text-center ${indexActive == index ? 'text-pink-300' : 'text-gray-500'} cursor-pointer hover:text-pink-300`} key={index} >
       {item.name}
     </div>)

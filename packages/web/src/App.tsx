@@ -15,24 +15,17 @@ import { UserPanel, UserAbout, Previous, Statistics, Catalog, Search, Comments, 
 import { getHome, getPostPage } from './BlogFetch/home'
 import { useQuery, UseQueryResult } from "react-query"
 import { Loading, Error } from './layout/comm'
-import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const App = () => {
-  const [pageData, setPageData] = useState({});
-  const { data, isLoading, error }: UseQueryResult<HttpGetResp<RespHome>> = useQuery('home', () => { return getHome() })
-  // const pagePost: UseQueryResult<HttpGetResp<PageResult>> = useQuery('page', () => {
-  //   return getPostPage({
-  //     pageSize: 10,
-  //     pageCurr: 1,
-  //     ...pageData
-  //   })
-  // })
-  const hanlerClickCate = (id: number): void => {
-    // setPageData({ cateId: id })
-  }
-  // useEffect(() => {
+  const navigate = useNavigate();
+  let [searchParams, setSearchParams] = useSearchParams()
+  const { data, isLoading, error }: UseQueryResult<HttpGetResp<RespHome>> = useQuery('home', () => { return getHome({}) })
 
-  // })
+  const hanlerClickCate = (id: number | string): void => {
+    setSearchParams({ "Category": id as string })
+    window.open(`/index?Category=${id}`, "_self")
+  }
 
   return (<div>{
     isLoading ? <Loading /> : error ? <Error /> : <div className="none:container none:mx-auto bg-red-100">
@@ -52,7 +45,7 @@ const App = () => {
           </div>
         </div>
         <div className='right-card w-60 flex-1'>
-          <Catalog Cate={data?.data?.categorize} />
+          <Catalog Cate={data?.data?.categorize} onClickCate={hanlerClickCate} />
           <Search />
           <Comments />
           <LinkAge />

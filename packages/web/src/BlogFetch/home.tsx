@@ -6,37 +6,18 @@
  * @FilePath: \newMylog\packages\web\src\BlogFetch\home.tsx
  */
 import { HttpGetResp, RespHome, PostSelect } from '../typings/global'
-import { UseQueryResult } from 'react-query'
-import axios from 'axios';
+import { UseQueryResult, useQuery } from 'react-query'
+import axios, { AxiosResponse } from 'axios';
 
 const BaseUrl = process.env.VITE_APP_URL
 
-export const getHome = async (): Promise<UseQueryResult> => {
-  const response = await fetch(`${BaseUrl}/api/home/getHome`);
-  if (!response.status) {
-    const { message } = await response.json();
-    throw new Error(message);
-  }
-  return response.json();
+export const getHome = async (data: any): Promise<UseQueryResult> => {
+  const result = await axios.request({ method: 'post', url: `${BaseUrl}/api/home/getHome`, data })
+  return result.data
 }
 
-// cateId=${data.cateId}&pageCurr=${data.pageCurr}&pageSize=${data.pageSize}
-
-
 export const getPostPage = async (data: PostSelect): Promise<UseQueryResult> => {
-  // let postPageParams = {
-
-  // }
-  // const response = await fetch(`${BaseUrl}/api/home/getPostPage`, {
-  //   method: 'get',
-  //   postPageParams: {}
-  // });
-  // if (!response.status) {
-  //   const { message } = await response.json();
-  //   throw new Error(message);
-  // }
-  // return response.json();
-  const result = await axios.request({ method: 'get', url: `${BaseUrl}/api/home/getPostPage`, params: data })
+  const result = await axios.request({ method: 'post', url: `${BaseUrl}/api/home/getPostPage`, data })
   return result.data
 }
 
