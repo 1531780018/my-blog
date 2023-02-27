@@ -18,11 +18,9 @@ const Index = () => {
   const navigate = useNavigate()
   const { data, isLoading, error }: UseQueryResult<HttpGetResp<PageResult>> = useQuery('page', () => {
     return getPostPage({
-      pageSize: 10, pageCurr: 1,
+      pageSize: 10, pageCurr: 0,
     })
   })
-  console.log(data?.data);
-
   return (
     <div className="postList">
       {data?.data?.result?.map((item: IPost, index: number) => {

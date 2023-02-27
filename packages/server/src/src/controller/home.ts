@@ -10,6 +10,15 @@ import prisma from "../config/prismaConfig"
 import { HttpGetResp, RespHome, PageResult, PostSelect } from "@myblog/web/src/typings/global"
 import { getDictObj } from '../../comm/uitls'
 
+const dataFormat = (val: string | number | undefined) => {
+  if (val == "" || val == 'undefined') {
+    return undefined
+  } else {
+    return val
+  }
+
+}
+
 const postPage = async (skip: number, take: number): Promise<any> => {
   return await prisma.post.findMany({
     skip: skip,
@@ -21,16 +30,13 @@ const postPage = async (skip: number, take: number): Promise<any> => {
 }
 
 export const GetPostQuery = async (data: PostSelect): Promise<HttpGetResp<PageResult>> => {
-  const pageCurr = data.pageCurr as string,
-    pageSize = data.pageSize as string
-  console.log(data.cateId);
 
   const getPostCount = await prisma.post.count() // 获取文章总数
   const pageResult = await prisma.post.findMany({
-    skip: parseInt(pageCurr) || 0,
-    take: parseInt(pageSize) || 10,
+    skip: dataFormat(data.pageCurr) || 0,
+    take: dataFormat(data.pageSize) || 10,
     where: {
-      cateId: data.cateId ?? undefined,
+      cateId: dataFormat(data.cateId),
       title: {
         contains: data.search,
       }

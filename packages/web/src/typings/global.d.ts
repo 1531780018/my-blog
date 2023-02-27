@@ -34,8 +34,8 @@ export declare interface HttpGetResp<D> {
 
 export declare interface PostSelect {
   cateId?: number  // 分类ID
-  pageSize: number | string // 每页显示条数
-  pageCurr: number | string // 当前所在页码
+  pageSize?: number | string // 每页显示条数
+  pageCurr?: number | string // 当前所在页码
   search?: string // 搜索关键字
 }
 
