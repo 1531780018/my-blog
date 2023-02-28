@@ -8,6 +8,7 @@
 import { HttpGetResp, PageResult } from '../../../src/typings/global'
 import { useQuery, UseQueryResult } from "react-query"
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Pagination } from '../../layout/comm'
 import { getPostPage } from '../../BlogFetch/home'
 const userPic: string = "https://www.avatar.bio/avatar/1531780018@qq.com?bc=DAF1FF&tc=555555&t=AU&s=48"
 const cover: string = "https://www.wdssmq.com/zb_users/theme/acgMora/var/noimg/3.webp"
@@ -73,6 +74,7 @@ const Index = () => {
                 </div>
               )
             })}
+            {<Pagination />}
           </div>
       }
     </div>

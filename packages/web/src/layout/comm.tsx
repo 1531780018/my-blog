@@ -27,3 +27,17 @@ export const Error = () => {
     </div>
   )
 }
+
+export const Pagination = () => {
+  let list = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => {
+    return <div className="border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer hover:text-white hover:bg-pink-300 active:shadow-inner"> {item} </div>
+  })
+  return (
+    <div className="Pagination flex items-center	justify-center	">
+      <div className="border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer hover:text-white hover:bg-pink-300 active:shadow-inner"> ‹‹ </div>
+      {list}
+      <div className="border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer hover:text-white hover:bg-pink-300 active:shadow-inner"> › </div>
+      <div className="border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer hover:text-white hover:bg-pink-300 active:shadow-inner"> ›› </div>
+    </div>
+  )
+}

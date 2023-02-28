@@ -11,7 +11,7 @@ import { HttpGetResp, RespHome, PageResult, PostSelect } from "@myblog/web/src/t
 import { getDictObj } from '../../comm/uitls'
 
 const dataFormat = (val: string | number | undefined) => {
-  if (val == "" || val == 'undefined') {
+  if (val == "" || val == 'undefined' || val == null) {
     return undefined
   } else {
     return val

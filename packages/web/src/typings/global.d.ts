@@ -54,7 +54,7 @@ export declare interface IPost {
 }
 export declare interface ICate {
   name: string // 文章标题
-  id: number // 文章id
+  id: number | string // 文章id
 }
 export declare interface IDict {
   key: string // 文章标题

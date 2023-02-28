@@ -1,4 +1,5 @@
 import { IPost, RespHome, ICate, IDict } from '../typings/global'
+import { useNavigate, useSearchParams } from 'react-router-dom';
 const userPanelBg: string = "https://www.wdssmq.com/zb_users/theme/acgMora/style/img/pic.webp"
 const userPic: string = "https://www.avatar.bio/avatar/1531780018@qq.com?bc=DAF1FF&tc=555555&t=AU&s=48"
 
@@ -162,13 +163,13 @@ export const Comments: React.FC = () => {
   )
 }
 
-let indexActive = -1;
 //cateTabs
 export const CateTabs: React.FC<RespHome['categorize']> = (props) => {
+  const [searchParams] = useSearchParams();
+  let Category = searchParams.get('Category')
+
   let list = props.Cate.map((item: ICate, index: number) => {
-
-
-    return (<div onClick={() => props.onClickCate(item.id)} className={`cate-items w-16 text-center ${indexActive == index ? 'text-pink-300' : 'text-gray-500'} cursor-pointer hover:text-pink-300`} key={index} >
+    return (<div onClick={() => props.onClickCate(item.id)} className={`cate-items w-16 text-center ${Category == item.id ? 'text-pink-300' : 'text-gray-500'} cursor-pointer hover:text-pink-300`} key={index} >
       {item.name}
     </div>)
   })

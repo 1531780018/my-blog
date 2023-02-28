@@ -20,8 +20,6 @@ router.post('/getHome', async (ctx: Application.ParameterizedContext) => {
 
 router.post('/getPostPage', async (ctx: Application.ParameterizedContext) => {
   const requestData: any = ctx.request.body;
-  console.log(requestData, 555);
-
   ctx.body = await GetPostQuery(requestData);
 });
 
