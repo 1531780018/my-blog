@@ -32,3 +32,4 @@ export async function getDictObj(arr: Array<DictItem>) {
   return obj
 
 }
+

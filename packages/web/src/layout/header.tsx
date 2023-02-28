@@ -30,7 +30,8 @@ const NavList: React.FC = () => {
     <div className='menu flex flex-row'>
       {menu.map((item, index) => {
         return (
-          <div className='transition duration-500 ease-in-out menu-item rounded-lg w-20 text-center transform hover:bg-red-300 hover:rounded-lg hover:h-6 hover:w-20' key={index} onClick={() => { navigate(item.href); }}  >
+          <div className='transition duration-500 ease-in-out menu-item rounded-lg w-20 text-center transform hover:bg-red-300 hover:rounded-lg hover:h-6 hover:w-20' key={index}
+            onClick={() => { navigate(item.href); }}  >
             {item.title}
           </div>
         )

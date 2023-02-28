@@ -1,5 +1,6 @@
 import { IPost, RespHome, ICate, IDict } from '../typings/global'
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
 const userPanelBg: string = "https://www.wdssmq.com/zb_users/theme/acgMora/style/img/pic.webp"
 const userPic: string = "https://www.avatar.bio/avatar/1531780018@qq.com?bc=DAF1FF&tc=555555&t=AU&s=48"
 
@@ -127,13 +128,21 @@ export const Catalog: React.FC<RespHome['categorize']> = (props) => {
   )
 }
 // 搜索
-export const Search: React.FC = () => {
+export const Search: React.FC<{
+  searchFun(arg0: string): any
+}> = (props) => {
+  const [searchVal, setSearhVal] = useState("")
   return (
     <div className="userSearch p-4 rounded-lg shadow-lg mb-5 bg-white">
       <div>搜索</div>
       <div className="search flex items-center">
-        <div><input className="bg-white rounded border border-pink-300 p-1 focus:border validEmail?focus:border-pink-300:border-red-600 my-2 w-full" placeholder="搜索喜欢的内容吧" /></div>
-        <div><button type="submit" className="bg-pink-300 text-white p-1 rounded ml-2 text-base w-full  hover:bg-pink-500">搜索</button> </div>
+        <div><input className="bg-white rounded border border-pink-300 p-1 focus:border validEmail?focus:border-pink-300:border-red-600 my-2 w-full"
+          placeholder="搜索喜欢的内容吧" onChange={(e) => {
+            setSearhVal(e.target.value)
+          }} /></div>
+        <div><button type="submit" className="bg-pink-300 text-white p-1 rounded ml-2 text-base w-full  hover:bg-pink-500" onClick={() => {
+          props.searchFun(searchVal)
+        }}>搜索</button> </div>
       </div>
     </div>
   )

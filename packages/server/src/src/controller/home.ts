@@ -30,19 +30,24 @@ const postPage = async (skip: number, take: number): Promise<any> => {
 }
 
 export const GetPostQuery = async (data: PostSelect): Promise<HttpGetResp<PageResult>> => {
-
-  const getPostCount = await prisma.post.count() // 获取文章总数
+  const getPostCount = await prisma.post.count(
+    {
+      where: {
+        cateId: dataFormat(data.cateId),
+        title: dataFormat(data.search)
+      }
+    }
+  )
+  // 获取文章总数
   const pageResult = await prisma.post.findMany({
     skip: dataFormat(data.pageCurr) || 0,
     take: dataFormat(data.pageSize) || 10,
     where: {
       cateId: dataFormat(data.cateId),
-      title: {
-        contains: data.search,
-      }
+      title: dataFormat(data.search)
     },
     include: {
-      author: true,
+      author: true
     },
   })
   return {

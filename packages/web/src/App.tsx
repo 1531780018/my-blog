@@ -16,17 +16,22 @@ import { getHome, getPostPage } from './BlogFetch/home'
 import { useQuery, UseQueryResult } from "react-query"
 import { Loading, Error } from './layout/comm'
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useReducer } from "react"
 
 const App = () => {
   const navigate = useNavigate();
   let [searchParams, setSearchParams] = useSearchParams()
   const { data, isLoading, error }: UseQueryResult<HttpGetResp<RespHome>> = useQuery('home', () => { return getHome({}) })
-
   const hanlerClickCate = (id: number | string): void => {
-    setSearchParams({ "Category": id as string })
-    window.open(`/index?Category=${id}`, "_self")
+    navigate(`/index?Category=${id}`)
+    // setSearchParams({ "Category": id as string })
+    // window.open(`/index?Category=${id}`, "_self") 
   }
-
+  const hanlerSearch = (val: string): void => {
+    navigate(`/index?Search=${val}`)
+    // setSearchParams({ "Search": val })
+    // window.open(`/index?Search=${val}`, "_self") 
+  }
   return (<div>{
     isLoading ? <Loading /> : error ? <Error /> : <div className="none:container none:mx-auto bg-red-100">
       <Navbar />
@@ -46,7 +51,7 @@ const App = () => {
         </div>
         <div className='right-card w-60 flex-1'>
           <Catalog Cate={data?.data?.categorize} onClickCate={hanlerClickCate} />
-          <Search />
+          <Search searchFun={hanlerSearch} />
           <Comments />
           <LinkAge />
         </div>

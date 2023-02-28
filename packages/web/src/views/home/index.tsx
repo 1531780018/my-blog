@@ -7,7 +7,7 @@
  */
 import { HttpGetResp, PageResult } from '../../../src/typings/global'
 import { useQuery, UseQueryResult } from "react-query"
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom'
 import { Pagination } from '../../layout/comm'
 import { getPostPage } from '../../BlogFetch/home'
 const userPic: string = "https://www.avatar.bio/avatar/1531780018@qq.com?bc=DAF1FF&tc=555555&t=AU&s=48"
@@ -18,8 +18,10 @@ import { useEffect, useState } from 'react';
 // 文章列表
 const Index = () => {
   const [searchParams] = useSearchParams()
-  const [pageCurr, setPageCurr] = useState(0)
-  const [pageSize, setPageSize] = useState(10)
+  const [pageCurr, setPageCurr] = useState(0) // 当前页数 1*10
+  const [pageNumber, setPageNumber] = useState(10) // 每页显示多少条
+  const [pageSize, setPageSize] = useState(pageNumber) // 每页显示多少条 curr * 10
+  const [pageIndex, setPageIndex] = useState(1) // 当前下标
   const [cateId, setCateId] = useState("")
   const [search, setSearch] = useState("")
   const [pageData, setPageData] = useState({
@@ -28,15 +30,25 @@ const Index = () => {
     error: false
   })
 
+  const location = useLocation();
+  useEffect(() => {
+    refetch()
+  }, [location])
+
   const { data, isFetching, error, refetch }: UseQueryResult<HttpGetResp<PageResult>> = useQuery('page', () => {
     return getPostPage({
       pageSize: pageSize,
       pageCurr: pageCurr,
       cateId: parseInt(searchParams.get('Category') as string),
-      search: search
+      search: searchParams.get('Search') as string
     })
   })
-
+  const pageHandelClick = (curr: number) => {
+    setPageIndex(curr)
+    setPageCurr((curr - 1) * pageNumber)
+    setPageSize((curr - 1) + pageNumber)
+    refetch()
+  }
   const navigate = useNavigate()
   return (
     <div>
@@ -74,7 +86,7 @@ const Index = () => {
                 </div>
               )
             })}
-            {<Pagination />}
+            {<Pagination pageSize={pageNumber} pageCurr={pageIndex} pageTatal={data?.data?.pageCount as number} propsPageClick={pageHandelClick} />}
           </div>
       }
     </div>
