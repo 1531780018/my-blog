@@ -19,10 +19,9 @@ const server: http.Server = new http.Server(app.callback());
 app.use(cors());
 // 执行初始化
 initCore(app, server);
-
 app.use(cors());
 
 app.listen(Config.HTTP_PORT, () => {
-  console.log(colors.rainbow(`Run.....yes port:${Config.HTTP_PORT}`));
+  // console.log(colors.rainbow(`Run.....yes port:${Config.HTTP_PORT}`));
   console.log(colors.rainbow(`http://localhost:${Config.HTTP_PORT}`));
 })

@@ -1,4 +1,8 @@
 
+import { getPost } from '../../BlogFetch/home';
+import { HttpGetResp, PageResult } from '../../../src/typings/global'
+import { UseQueryResult, useQuery } from 'react-query'
+import { useSearchParams } from 'react-router-dom'
 const html = (`<div class="article-main"><input type="hidden" value="6" id="genrer"><input type="hidden" value="3" id="origin"><span class="article-text-divider"></span><div class="article-content"><blockquote>
 <p>文|<span>ACGx</span></p>
 </blockquote>
@@ -114,11 +118,23 @@ const html = (`<div class="article-main"><input type="hidden" value="6" id="genr
 <p><img alt="" src="https://img1.jiemian.com/jiemian/original/20221228/16722398736382300_a700xH.png"></p>
 <!--------------------- 来源 --------------------></div><div id="ad_content"><div class="ad_content_box"><script>JM_SLOT_SHOW('205', '#ad_content');</script></div></div></div>`)
 const Post = (): JSX.Element => {
+  const [searchParams] = useSearchParams()
+  const { data, isLoading, error, refetch }: UseQueryResult<HttpGetResp<{ title: string, updatedAt: string, content: string }>> = useQuery('page', () => {
+    return getPost({
+      id: searchParams.get('id') as string
+    })
+  })
   return (
     <div className="Post mb-3 rounded-lg shadow-lg p-4 break-all bg-white" >
-      <div className="Post-title mb-3 text-center text-3xl	text-gray-500	font-semibold	hover:underline ">重生之我是卢本伟</div>
-      <div className="Post-date mb-3 text-center text-xs	text-gray-500		hover:underline ">发布日期:2023 - 2 - 25 1:15</div>
-      <div className="Post-html" dangerouslySetInnerHTML={{ __html: html }}></div>
+      {
+        isLoading ? (<div>Loading...</div>) : error ? <div>error</div> :
+          (<div>
+            <div className="Post-title mb-3 text-center text-3xl	text-gray-500	font-semibold	hover:underline ">{data?.data?.title}</div>
+            <div className="Post-date mb-3 text-center text-xs	text-gray-500		hover:underline ">发布日期: {data?.data?.updatedAt} </div>
+            <div className="Post-html" dangerouslySetInnerHTML={{ __html: data?.data?.content as string }}></div>
+          </div>
+          )
+      }
     </div>
   )
 }

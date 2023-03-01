@@ -31,6 +31,9 @@ export declare interface HttpGetResp<D> {
   msg: string
 }
 
+export declare interface postDetail {
+  id: number | string
+}
 
 export declare interface PostSelect {
   cateId?: number  // 分类ID

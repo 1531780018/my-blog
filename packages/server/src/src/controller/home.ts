@@ -7,17 +7,8 @@
  */
 
 import prisma from "../config/prismaConfig"
-import { HttpGetResp, RespHome, PageResult, PostSelect } from "@myblog/web/src/typings/global"
-import { getDictObj } from '../../comm/uitls'
-
-const dataFormat = (val: string | number | undefined) => {
-  if (val == "" || val == 'undefined' || val == null) {
-    return undefined
-  } else {
-    return val
-  }
-
-}
+import { HttpGetResp, RespHome, PageResult, PostSelect, postDetail } from "@myblog/web/src/typings/global"
+import { getDictObj, dataFormat } from '../../comm/uitls'
 
 const postPage = async (skip: number, take: number): Promise<any> => {
   return await prisma.post.findMany({
@@ -75,7 +66,6 @@ export const GetHome = async (): Promise<HttpGetResp<RespHome>> => {
   const getCate = await prisma.categorize.findMany({}); // 查询所有分类
   const getPostCount = await prisma.post.count() // 获取文章总数
   const getPostAll = await postPage(0, 10) // 查询最新10篇文章 
-
   if (getHome.length > 0) {
     return {
       code: 200,
@@ -99,4 +89,29 @@ export const GetHome = async (): Promise<HttpGetResp<RespHome>> => {
       status: false
     }
   }
+}
+
+export const GetPosts = async (data: postDetail): Promise<HttpGetResp<RespHome>> => {
+  const getPost = await prisma.post.findMany({
+    where: {
+      id: parseInt(dataFormat(data.id) as string)
+    }
+  })
+  if (getPost.length > 0) {
+    return {
+      code: 200,
+      msg: "查询成功",
+      data: getPost[0],
+      status: true
+    }
+  } else {
+    return {
+      code: 500,
+      msg: "查询失败",
+      data: undefined,
+      status: false
+    }
+  }
+
+
 }

@@ -5,7 +5,7 @@
  * @Description: 
  * @FilePath: \newMylog\packages\web\src\BlogFetch\home.tsx
  */
-import { HttpGetResp, RespHome, PostSelect } from '../typings/global'
+import { HttpGetResp, RespHome, PostSelect, postDetail } from '../typings/global'
 import { UseQueryResult, useQuery } from 'react-query'
 import axios, { AxiosResponse } from 'axios';
 
@@ -21,3 +21,7 @@ export const getPostPage = async (data: PostSelect): Promise<UseQueryResult> => 
   return result.data
 }
 
+export const getPost = async (data: postDetail): Promise<UseQueryResult> => {
+  const result = await axios.request({ method: 'get', url: `${BaseUrl}/api/home/getPost`, params: data })
+  return result.data
+}

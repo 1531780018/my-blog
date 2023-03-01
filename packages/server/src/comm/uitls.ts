@@ -33,3 +33,11 @@ export async function getDictObj(arr: Array<DictItem>) {
 
 }
 
+export const dataFormat = (val: string | number | undefined) => {
+  if (val == "" || val == 'undefined' || val == null) {
+    return undefined
+  } else {
+    return val
+  }
+}
+
