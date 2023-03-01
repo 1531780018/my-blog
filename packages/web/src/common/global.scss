@@ -2,7 +2,6 @@
   width: 100%;
 
   .logo {
-    width: 200px;
     height: 60px;
   }
 
@@ -16,4 +15,45 @@
 
 .Post {
   min-height: 80%
+}
+
+
+@media screen and (max-width: 980px) {
+  .header {
+    justify-content: space-between;
+
+    .menu {
+      display: none;
+    }
+  }
+
+  .main {
+    justify-content: center;
+
+    .left-card {
+      display: none;
+    }
+
+    .right-card {
+      display: none;
+    }
+
+    .main-flex {
+      width: 95%;
+    }
+
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .header {
+    .menu-p {
+      display: none;
+    }
+  }
+
+  .main {
+    max-width: 90%;
+  }
+
 }

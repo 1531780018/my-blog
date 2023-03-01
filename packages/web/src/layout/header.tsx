@@ -27,22 +27,30 @@ const menu: Menu[] = [
 const NavList: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <div className='menu flex flex-row'>
-      {menu.map((item, index) => {
-        return (
-          <div className='transition duration-500 ease-in-out menu-item rounded-lg w-20 text-center transform hover:bg-red-300 hover:rounded-lg hover:h-6 hover:w-20' key={index}
-            onClick={() => { navigate(item.href); }}  >
-            {item.title}
-          </div>
-        )
-      })}
+    <div>
+      <div className='menu flex flex-row'>
+        {menu.map((item, index) => {
+          return (
+            <div className='transition duration-500 ease-in-out menu-item rounded-lg w-20 text-center transform hover:text-white  hover:bg-red-300 hover:rounded-lg hover:h-6 hover:w-20' key={index}
+              onClick={() => { navigate(item.href); }}  >
+              {item.title}
+            </div>
+          )
+        })}
+      </div>
+      <div className='menu-p pr-2'>
+        <i className='iconfont blogcaidan text-2xl'></i>
+      </div>
     </div>
+
   )
 }
 
 const Logo: React.FC = () => {
   return (
-    <div className="rounded-full py-3 px-6 logo flex justify-center items-center">
+    <div className="rounded-full py-3 px-6 logo flex justify-center items-center" onClick={() => {
+      window.open('/', '_self')
+    }}>
       <img className='logoImg' src={logoUrl} />
     </div>
   )

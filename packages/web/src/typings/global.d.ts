@@ -31,6 +31,15 @@ export declare interface HttpGetResp<D> {
   msg: string
 }
 
+export declare interface userPanelCount<D> {
+  Statis?: D
+}
+
+export declare interface StatisCount {
+  postCount?: string
+}
+
+
 export declare interface postDetail {
   id: number | string
 }

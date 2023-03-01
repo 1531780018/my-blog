@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3925487 */
+  /* Color fonts */
+  src: 
+       url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAGUAAwAAAAAA5QAAAFGAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIhgjEgZgADwKUFgBNgIkAwwLCgAEIAWBfAcgG78CyIYH+jXa+3Kmhkcuilfck4fEkAntbiNMJxRCh0rTvEPX5Dc4oAd7oDf+5iiqsgqLGuDAprNhJaX59qaZGhGbyqSeJEmSju4ioBHtgojxBILgbeYyv1PKWfikQo6f421s6TrhtrWwBlCh2UfbO9ubvhn+9Tt9KD+QPviwc58ofscwVZ2EdslvaZdNo5JhxWmrLFGr/NnR4klMZ1CdVxvR2SxCkGLm8OuXVzSFpwF6XNzYL06OnJ4ei3hSRmoUx5++3u3au9J06X91yuDHRNc5PV04SkexQKU4QVy5MVMo0tGJFOAO6+FWzepf3sLPKm1LQq4RNFOUqJEIAMkZgyAbdggq9Hp5r9Kwj+654YnHbqfXXtp3yx2vPHTNcysWLYt/0badsHzTxfFFC9TYQxqGH7vluRfuTYc39Fr6xwSUX/xXAAAAAAA=') format('woff2'),
+       url('iconfont.woff?t=1677682360888') format('woff'),
+       url('iconfont.ttf?t=1677682360888') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.blogcaidan:before {
+  content: "\eaf1";
+}
+

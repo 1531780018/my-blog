@@ -9,6 +9,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from 'react-query';
+import "./assets/iconfont/iconfont.css"
 import App from "./App"
 
 const queryClient = new QueryClient();

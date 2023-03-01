@@ -10,6 +10,11 @@ module.exports = {
   content: ['./src/**/*.{ts,tsx,jsx,js}','./src/views/**/*.{ts,tsx,jsx,js}'],
   theme: {
     extend: {},
+    screens:{
+      // "tablet":"640px",
+      // "laptop":"1024px",
+      // "desktop":"1280px"
+    }
   },
   plugins: [],
 }

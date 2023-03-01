@@ -1,4 +1,4 @@
-import { IPost, RespHome, ICate, IDict } from '../typings/global'
+import { IPost, RespHome, ICate, IDict, userPanelCount, StatisCount } from '../typings/global'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 const userPanelBg: string = "https://www.wdssmq.com/zb_users/theme/acgMora/style/img/pic.webp"
@@ -48,9 +48,9 @@ const catelist = [
 ]
 
 // 用户展示
-export const UserPanel: React.FC = () => {
+export const UserPanel: React.FC<userPanelCount<StatisCount>> = (props) => {
   return (
-    <div className="rounded-lg shadow-lg h-40 mb-5 relative bg-white">
+    <div className="rounded-lg shadow-lg h-40 mb-5 relative bg-white md:block">
       <div className="h-20 rounded-t-lg  p-4" style={{ backgroundImage: `url(${userPanelBg})` }}>
         <div className="userPic absolute top-12 ">
           <img src={userPic} className="rounded-full w-50 h-50 border-2 shadow-md border-white" />
@@ -58,15 +58,15 @@ export const UserPanel: React.FC = () => {
       </div>
       <div className="userInfo px-4 pt-6 flex justify-around">
         <div className="userbox">
-          <div className="num text-pink-300	">123</div>
+          <div className="num text-pink-300	text-center	">{props?.Statis?.postCount ?? 0}</div>
           <div className="text text-gray-500 cursor-pointer	hover:text-pink-300">文章</div>
         </div>
         <div className="userbox">
-          <div className="num text-pink-300">123</div>
+          <div className="num text-pink-300 text-center	">{props?.Statis?.postCount ?? 0}</div>
           <div className="text text-gray-500 cursor-pointer	hover:text-pink-300">说说</div>
         </div>
         <div className="userbox">
-          <div className="num text-pink-300">123</div>
+          <div className="num text-pink-300 text-center	">{props?.Statis?.postCount ?? 0}</div>
           <div className="text text-gray-500 cursor-pointer	hover:text-pink-300">评论</div>
         </div>
       </div>

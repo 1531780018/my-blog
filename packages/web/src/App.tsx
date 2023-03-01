@@ -33,31 +33,32 @@ const App = () => {
     // window.open(`/index?Search=${val}`, "_self") 
   }
   return (<div>{
-    isLoading ? <Loading /> : error ? <Error /> : <div className="none:container none:mx-auto bg-red-100">
-      <Navbar />
-      {/* 中心区域 */}
-      <div className='main container mx-auto  my-8  flex  '>
-        <div className='left-card w-60 flex-1'>
-          <UserPanel />
-          <UserAbout Contacts={data?.data?.contacts} />
-          <Previous NewPost={data?.data?.page} />
-          <Statistics />
-        </div>
-        <div className='w-3/6 mx-5'>
-          <CateTabs Cate={data?.data?.categorize} onClickCate={hanlerClickCate} />
-          <div className='main-content  man-content-box'>
-            <GetRouterALL />
+    isLoading ? <Loading /> : error ? <Error /> :
+      <div className="md:container md:mx-auto bg-red-100">
+        <Navbar />
+        {/* 中心区域 */}
+        <div className='main container mx-auto  my-8  flex  '>
+          <div className='left-card w-60 flex-1'>
+            <UserPanel Statis={data?.data?.statis} />
+            <UserAbout Contacts={data?.data?.contacts} />
+            <Previous NewPost={data?.data?.page} />
+            <Statistics />
+          </div>
+          <div className='main-flex w-3/6 mx-5'>
+            <CateTabs Cate={data?.data?.categorize} onClickCate={hanlerClickCate} />
+            <div className='main-content  man-content-box'>
+              <GetRouterALL />
+            </div>
+          </div>
+          <div className='right-card w-60 flex-1'>
+            <Catalog Cate={data?.data?.categorize} onClickCate={hanlerClickCate} />
+            <Search searchFun={hanlerSearch} />
+            <Comments />
+            <LinkAge />
           </div>
         </div>
-        <div className='right-card w-60 flex-1'>
-          <Catalog Cate={data?.data?.categorize} onClickCate={hanlerClickCate} />
-          <Search searchFun={hanlerSearch} />
-          <Comments />
-          <LinkAge />
-        </div>
+        <GetFooter />
       </div>
-      <GetFooter />
-    </div>
   }</div>)
 }
 
