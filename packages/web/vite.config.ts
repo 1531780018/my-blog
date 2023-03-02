@@ -19,7 +19,7 @@ export default ({ mode }: { mode: string }) => {
       cors: true
     },
     build: {
-      outDir: "../../dist"
+      outDir: "./dist"
     }
 
   })

@@ -8,7 +8,8 @@
     "dev:css": "tailwindcss -o ./src/styles/tailwind.css --watch",
     "init:env": "cp -n .sample.env .env",
     "clean": "rm -rf node_modules",
-    "build": "vite build",
+    "build": "vite build --",
+    "build:test": "vite build --outDir ../../dist",
     "preview": "vite preview --port 8080"
   },
   "keywords": [],
