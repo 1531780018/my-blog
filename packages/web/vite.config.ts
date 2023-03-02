@@ -13,7 +13,15 @@ export default ({ mode }: { mode: string }) => {
     plugins: [react()],
     define: {
       'process.env': { ...process.env, ...loadEnv(mode, process.cwd()) }
+    },
+    preview: {
+      port: 8080,
+      cors: true
+    },
+    build: {
+      outDir: "../../dist"
     }
+
   })
 }
 

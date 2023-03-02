@@ -25,8 +25,6 @@ router.post('/getPostPage', async (ctx: Application.ParameterizedContext) => {
 
 router.get('/getPost', async (ctx: Application.ParameterizedContext) => {
   const requestData: any = ctx.request.query;
-  console.log(requestData);
-
   ctx.body = await GetPosts(requestData);
 });
 export default router;

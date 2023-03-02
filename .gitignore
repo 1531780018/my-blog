@@ -2,3 +2,4 @@ node_modules
 packages/**/node_modules
 packages/**/prisma/migrations
 packages/**/.env
+/dist/

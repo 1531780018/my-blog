@@ -11,7 +11,10 @@
     "dev:web": "pnpm -C ./packages/web dev",
     "dev:css": "pnpm -C ./packages/web dev:css",
     "init": "pnpm -r --filter=./packages/* init:env",
-    "clean": "rm -rf node_modules && pnpm -r --filter=./packages/* clean"
+    "clean": "rm -rf node_modules && pnpm -r --filter=./packages/* clean",
+    "build:web": "pnpm -C ./packages/web build",
+    "build:server": "xcopy ./packages/server ./dist/server /EXCLUDE:./packages/server/node_modules /s /f /h ",
+    "preview": "pnpm -C ./packages/web preview"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +22,11 @@
   "dependencies": {
     "@myblog/server": "workspace:^1.0.0",
     "@myblog/web": "workspace:^1.0.0",
-    "koa-bodyparser": "^4.3.0",
     "typescript": "^4.9.5"
   },
-  "devDependencies": {
-    "@types/koa-bodyparser": "^4.3.10"
-  }
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=6"
+  },
+  "devDependencies": {}
 }
