@@ -60,7 +60,7 @@ const Index = () => {
                 <div className="post-list-item mb-3 rounded-lg shadow-lg bg-white p-4 cursor-pointer hover:bg-pink-50" key={index} onClick={() => { navigate(`/post?id=${item.id}`) }}>
                   <div className="post-item-user flex flex-row  items-center mb-2">
                     <div className="pic">
-                      <img src={item.author.user_pic || userPic} className="rounded-full border-2 border-white shadow-md w-50 h-50" />
+                      <img src={item.author.user_pic || userPic} className="rounded-full border-2 border-white shadow-md w-12 h-12" />
                     </div>
                     <div className="info ml-4">
                       <div className="user text-lg text-gray-500	"> {item.author.name} </div>

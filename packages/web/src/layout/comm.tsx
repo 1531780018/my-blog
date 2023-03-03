@@ -43,10 +43,19 @@ export const Pagination: React.FC<{
   })
   return (
     <div className="Pagination flex items-center	justify-center	">
-      <div className="border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer hover:text-white hover:bg-pink-300 active:shadow-inner"> ‹‹ </div>
+      <div className={`${props.pageCurr + 1 > 1 ? `block` : `hidden`} border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer
+       hover:text-white hover:bg-pink-300 active:shadow-inner`} onClick={() => props.propsPageClick(1)}> ‹‹ </div>
+      <div className={`${props.pageCurr + 1 > 1 ? `block` : `hidden`} border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer
+       hover:text-white hover:bg-pink-300 active:shadow-inner`} onClick={() =>
+          props.pageCurr <= 1 ? props.propsPageClick(props.pageCurr - 1) : alert("已经是第一页了")
+        }> ‹ </div>
       {list}
-      <div className="border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer hover:text-white hover:bg-pink-300 active:shadow-inner"> › </div>
-      <div className="border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer hover:text-white hover:bg-pink-300 active:shadow-inner"> ›› </div>
-    </div>
+      <div className={`${list.length + 1 > 1 ? `block` : `hidden`} border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer
+       hover:text-white hover:bg-pink-300 active:shadow-inner`} onClick={() =>
+          props.pageCurr < list.length ? props.propsPageClick(props.pageCurr + 1) : alert("已经是最后一页了")
+        }> › </div>
+      <div className={`${list.length > 1 ? `block` : `hidden`} border-pink-300 shadow	bg-white text-gray-500 rounded-md w-8 h-8 text-center	leading-8	mx-1 cursor-pointer
+       hover:text-white hover:bg-pink-300 active:shadow-inner`} onClick={() => props.propsPageClick(list.length)} > ›› </div>
+    </div >
   )
 }

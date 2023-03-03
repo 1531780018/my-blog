@@ -9,7 +9,7 @@ import { HttpGetResp, RespHome, PostSelect, postDetail } from '../typings/global
 import { UseQueryResult, useQuery } from 'react-query'
 import axios, { AxiosResponse } from 'axios';
 
-const BaseUrl = import.meta.env.VITE_APP_URL
+const BaseUrl = process.env.VITE_APP_URL
 
 export const getHome = async (data: any): Promise<UseQueryResult> => {
   const result = await axios.request({ method: 'post', url: `${BaseUrl}/api/home/getHome`, data })
