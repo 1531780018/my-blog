@@ -17,7 +17,6 @@ export const Loading = () => {
   )
 }
 
-
 export const Error = () => {
   return (
     <div className="Loading flex w-full	h-full	bg-pink-300 absolute justify-center	items-center		">
