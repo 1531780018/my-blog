@@ -7,92 +7,150 @@
 -->
 <template>
   <n-space vertical size="large">
-    <n-layout>
-      <n-layout-header>
-        <n-menu v-model:value="state.activeKey" mode="horizontal" :options="menuOptions" />
-      </n-layout-header>
-      <n-layout has-sider>
-        <n-layout-sider content-style="padding: 24px;height:100%">
-          左侧菜单
-        </n-layout-sider>
-        <n-layout-content content-style="padding: 24px;">
-          内容展示出口
+    <n-layout has-sider style="height: 100%;position: absolute;width: 100%;">
+      <n-layout-sider class="menu" bordered collapse-mode="width" :collapsed-width="64" :width="240"
+        :collapsed="state.collapsed" show-trigger @collapse="state.collapsed = true" @expand="state.collapsed = false">
+        <div class="logo">
+          <n-h2 v-show="!state.collapsed">LOGO</n-h2>
+          <n-h2 v-show="state.collapsed">L</n-h2>
+        </div>
+        <n-menu :collapsed="state.collapsed" :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions2"
+          :render-label="state.renderMenuLabel" :expand-icon="state.expandIcon" default-value="add-post" />
+      </n-layout-sider>
+      <div class="main">
+        <n-layout-header class="main-flex-t">
+          <n-switch v-model:value="state.active" @change="themeChange" /> 主题颜色切换
+          <!-- <n-menu v-model:value="state.activeKey" mode="horizontal" :options="menuOptions" /> -->
+        </n-layout-header>
+        <n-layout-content class="main-flex-m">
+          <router-view></router-view>
         </n-layout-content>
-      </n-layout>
-      <n-layout-footer>底部</n-layout-footer>
+        <n-layout-footer class="main-flex-b">底部</n-layout-footer>
+      </div>
     </n-layout>
   </n-space>
 </template>
 <script lang="tsx" setup>
-import { reactive } from "vue"
-const menuOptions = reactive([
+import { NIcon } from 'naive-ui'
+import { reactive, h, ref, defineComponent, defineEmits, Component } from "vue"
+import type { MenuOption } from 'naive-ui'
+import {
+  DocumentOutline as PostAdd,
+  BookOutline as BookIcon,
+  Apps as AppsIcon,
+  People as PeopleIcon,
+  ChatbubbleEllipsesSharp as ChatIcon,
+  PricetagsOutline as TagIcon,
+  SettingsOutline as SetIcon
+} from '@vicons/ionicons5'
+
+const renderIcon = (icon: Component) => {
+  return () => h(NIcon, null, { default: () => h(icon) })
+}
+
+const emit = defineEmits(['theme'])
+const themeChange = (v: boolean) => {
+  emit("theme", v)
+}
+const menuOptions2: MenuOption[] = [
   {
-    label: '菜单1',
-    key: 'pinball-1973',
-    disabled: true,
-    children: [
-      {
-        label: '鼠',
-        key: 'rat'
-      }
-    ]
-  }, {
-    label: '菜单1',
-    key: 'pinball-1973',
-    disabled: true,
-    children: [
-      {
-        label: '鼠',
-        key: 'rat'
-      }
-    ]
-  }, {
-    label: '菜单2',
-    key: 'pinball-1973',
-    disabled: true,
-    children: [
-      {
-        label: '鼠',
-        key: 'rat'
-      }
-    ]
-  }, {
-    label: '菜单3',
-    key: 'pinball-1973',
-    disabled: true,
-    children: [
-      {
-        label: '鼠',
-        key: 'rat'
-      }
-    ]
-  }, {
-    label: '菜单4',
-    key: 'pinball-1973',
-    disabled: true,
-    children: [
-      {
-        label: '鼠',
-        key: 'rat'
-      }
-    ]
+    label: '新建文章',
+    key: 'add-post',
+    icon: renderIcon(PostAdd)
   },
-])
+  {
+    label: '文章管理',
+    icon: renderIcon(BookIcon)
+  },
+  {
+    label: '分类管理',
+    key: 'cate-manage',
+    icon: renderIcon(AppsIcon)
+  },
+  {
+    label: '用户管理',
+    key: 'user-manage',
+    icon: renderIcon(PeopleIcon)
+  },
+  {
+    label: '评论管理',
+    key: 'comment-manage',
+    icon: renderIcon(ChatIcon)
+  },
+  {
+    label: 'TAG管理',
+    key: 'tag-manage',
+    icon: renderIcon(TagIcon)
+  },
+  {
+    label: '网站设置',
+    key: 'website',
+    icon: renderIcon(SetIcon)
+  }
+]
+
 const state = reactive(
   {
-    activeKey: ""
+    active: false,
+    activeKey: "add-post",
+    collapsed: false,
+    expandIcon: "",
+    renderMenuLabel(option: MenuOption) {
+      if ('href' in option) {
+        return h(
+          'a',
+          { href: option.href, target: '_blank' },
+          option.label as string
+        )
+      }
+      return option.label as string
+    },
   }
 )
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.menu {
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .n-h2 {
+      margin: 10px 0px;
+    }
+  }
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  .main-flex-t {
+    height: 50px;
+    flex: 1;
+    line-height: 62px;
+    padding-left: 2em;
+  }
+
+  .main-flex-m {
+    padding: 24px;
+    height: 80%;
+  }
+
+  .main-flex-b {
+    flex: 1;
+    height: 20%;
+  }
+}
+
 .n-layout-header,
 .n-layout-footer {
   background: rgba(128, 128, 128, 0.2);
-  padding: 24px;
 }
 
 .n-layout-sider {
-  background: rgba(128, 128, 128, 0.3);
+  background-color: --n-color;
 }
 
 .n-layout-content {

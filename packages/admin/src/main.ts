@@ -13,8 +13,6 @@ import naiveui from 'naive-ui'
 import 'vfonts/Lato.css'
 // 等宽字体
 import 'vfonts/FiraCode.css'
-
 const app = createApp(App)
 app.use(naiveui)
-
 app.use(router).mount("#root")
