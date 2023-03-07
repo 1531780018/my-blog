@@ -72,3 +72,13 @@ export declare interface IDict {
   key: string // 文章标题
   Value: number // 文章id
 }
+
+export declare interface Login {
+  email: string // 文章标题
+  password: string // 文章id
+}
+
+export declare interface LoginResp {
+  token: string // 文章标题
+  userInfo: Object // 文章id
+}

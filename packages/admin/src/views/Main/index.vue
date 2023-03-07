@@ -12,7 +12,7 @@
                 <n-input v-model:value="state.model.password" type="password" @keydown.enter.prevent />
               </n-form-item>
               <div>
-                <n-button type="info" style="width:100%"> 登录 </n-button>
+                <n-button type="info" style="width:100%" @click="loginSubmit"> 登录 </n-button>
               </div>
             </n-form>
           </div>
@@ -23,15 +23,31 @@
 </template>
 <script lang="tsx" setup>
 import { reactive } from 'vue';
+import { login } from "@/api/api"
+import { uesUserStore } from '@/store/user'
+const store = uesUserStore();
 const state = reactive({
   model: {
-    username: "",
-    password: ""
+    username: "1531780018@qq.com",
+    password: "013580724422"
   },
   rules: {
 
   }
 })
+
+const loginSubmit = async () => {
+  const loginRes = await login({ ...state.model });
+  if (loginRes.data.code == 200) {
+    const data = loginRes.data.data;
+    store.setUserInfo({
+      token: data.token,
+      userInfo: data.userInfo
+    })
+  }
+
+}
+
 </script>
 <style lang="scss" scoped>
 .login {

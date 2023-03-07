@@ -12,6 +12,8 @@ import Router from 'koa-router';
 import koaBodyParser from "koa-bodyparser";
 import { getAllFilesExport } from './comm/uitls'
 import colors from 'colors';
+import { jwtChecks } from './comm/jwt'
+
 class Init {
   public static app: Koa;
   public static server: http.Server;
@@ -19,6 +21,7 @@ class Init {
     Init.app = app;
     Init.server = server;
     Init.initKoaBodyParser();
+    Init.jwtCheck();
     Init.initLoadRouters();
   };
   public static async initKoaBodyParser() {
@@ -30,6 +33,14 @@ class Init {
       Init.app.use(file.routes());
     });
     console.log(colors.rainbow('router.....yes'));
+  }
+  public static async jwtCheck() {
+    console.log(8888);
+    Init.app.use((ctx: Koa.Context, next: Function) => {
+      const token = ctx.request.headers?.token as string;
+      console.log(jwtChecks(token));
+
+    })
   }
 }
 
