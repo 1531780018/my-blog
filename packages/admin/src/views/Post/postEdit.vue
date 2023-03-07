@@ -17,13 +17,18 @@
             </n-form-item>
             <n-form-item label="文章标题" path="user.name" style="width: 100%;">
               <div class="editContent">
-                <editor api-key="no-api-key" :init="tinymceInit" />
+                <div style="border: 1px solid #ccc">
+                  <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig"
+                    mode="default" />
+                  <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig"
+                    mode="default" @onCreated="handleCreated" />
+                </div>
               </div>
             </n-form-item>
           </n-card>
         </n-grid-item>
+        <!-- 右侧保存 -->
         <n-grid-item>
-          <!-- 右侧保存 -->
           <div class="rightSubmit">
             <n-card title="" class="right-box" hoverable>
               <div class="submits">
@@ -40,23 +45,44 @@
               </n-form-item>
             </n-card>
           </div>
-
         </n-grid-item>
       </n-grid>
     </n-form>
   </div>
 </template>
 <script lang="tsx" setup>
-import { reactive, ref } from 'vue';
-import Editor from '@tinymce/tinymce-vue'
-const tinymceInit = {
-  selector: '#textarea1',
-  plugins: 'code',
-  width: "100%",
-  language: 'zh_CN',//注意大小写
-  language_url: '/tinymce/langs/zh_CN.js',
-  height: 600,
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { reactive, ref, shallowRef, onMounted, onBeforeUnmount } from 'vue';
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+
+const editorRef = shallowRef()
+
+// 内容 HTML
+const valueHtml = ref('<p>hello</p>')
+
+// 模拟 ajax 异步获取内容
+onMounted(() => {
+  setTimeout(() => {
+    valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
+  }, 1500)
+})
+
+const toolbarConfig = {}
+const editorConfig = { placeholder: '请输入内容...' }
+
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+  const editor = editorRef.value
+  if (editor == null) return
+  editor.destroy()
+})
+
+const handleCreated = (editor) => {
+  editorRef.value = editor // 记录 editor 实例，重要！
 }
+
+
+
 const tags = ref(['文章', '新闻'])
 const options = [
   {

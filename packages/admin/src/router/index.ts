@@ -6,8 +6,12 @@ const routes = [
     component: () => import("@/views/Index/index.vue"),
     children: [
       {
-        path: '/addPost',
-        component: () => import("@/views/Post/postAdd.vue"),
+        path: '/editPost',
+        component: () => import("@/views/Post/postEdit.vue"),
+      },
+      {
+        path: '/postManage',
+        component: () => import("@/views/Post/postManage.vue"),
       }
     ]
   }
