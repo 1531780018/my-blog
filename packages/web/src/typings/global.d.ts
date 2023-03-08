@@ -82,3 +82,7 @@ export declare interface LoginResp {
   token: string // 文章标题
   userInfo: Object // 文章id
 }
+export declare interface getAdminResp {
+  catelist: Array,
+  website: Array
+}

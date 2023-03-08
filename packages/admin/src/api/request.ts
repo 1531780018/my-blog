@@ -33,9 +33,9 @@ service.interceptors.request.use((config: any) => {
 // Response interceptors
 service.interceptors.response.use(
   async (response: AxiosResponse) => {
-    // if (response.data.state == 401) {
-    //   location.href = "/login";
-    // }
+    if (response.data.state == 401) {
+      location.href = "/login";
+    }
     // do something
     return response;
   },

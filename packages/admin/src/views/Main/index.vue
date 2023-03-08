@@ -25,6 +25,9 @@
 import { reactive } from 'vue';
 import { login } from "@/api/api"
 import { uesUserStore } from '@/store/user'
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
 const store = uesUserStore();
 const state = reactive({
   model: {
@@ -44,6 +47,8 @@ const loginSubmit = async () => {
       token: data.token,
       userInfo: data.userInfo
     })
+    window.$message.success("登录成功，进入详情页")
+    router.push({ name: 'admin' })
   }
 
 }

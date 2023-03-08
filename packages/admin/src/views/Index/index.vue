@@ -19,7 +19,11 @@
       </n-layout-sider>
       <div class="main">
         <n-layout-header class="main-flex-t">
-          <n-switch v-model:value="state.active" @change="themeChange" /> 主题颜色切换
+          <div> <n-switch v-model:value="state.active" @change="themeChange" /> 主题颜色切换</div>
+          <div> <n-button quaternary type="primary" @click="exitLogin()">
+              退出登录
+            </n-button> </div>
+
           <!-- <n-menu v-model:value="state.activeKey" mode="horizontal" :options="menuOptions" /> -->
         </n-layout-header>
         <n-layout-content class="main-flex-m">
@@ -34,6 +38,7 @@
 import { NIcon } from 'naive-ui'
 import { reactive, h, ref, defineComponent, defineEmits, Component } from "vue"
 import type { MenuOption } from 'naive-ui'
+import { RouterLink, useRouter } from 'vue-router'
 import {
   DocumentOutline as PostAdd,
   BookOutline as BookIcon,
@@ -43,6 +48,25 @@ import {
   PricetagsOutline as TagIcon,
   SettingsOutline as SetIcon
 } from '@vicons/ionicons5'
+
+const router = useRouter()
+
+const exitLogin = () => {
+  window.$dialog.warning({
+    title: '警告',
+    content: '是否退出登录？',
+    positiveText: '确定',
+    negativeText: '不确定',
+    onPositiveClick: () => {
+      window.$message.success('退出成功')
+      localStorage.clear();
+      router.push({ name: 'index' })
+    },
+    onNegativeClick: () => {
+      window.$message.error('用户取消退出')
+    }
+  })
+}
 
 const renderIcon = (icon: Component) => {
   return () => h(NIcon, null, { default: () => h(icon) })
@@ -54,36 +78,36 @@ const themeChange = (v: boolean) => {
 }
 const menuOptions2: MenuOption[] = [
   {
-    label: '新建文章',
+    label: <RouterLink to="/admin/editPost">新建文章</RouterLink>,
     key: 'add-post',
     icon: renderIcon(PostAdd)
   },
   {
-    label: '文章管理',
+    label: <RouterLink to="/admin/postManage">文章管理</RouterLink>,
     icon: renderIcon(BookIcon)
   },
   {
-    label: '分类管理',
+    label: <RouterLink to="/admin/editPost">分类管理</RouterLink>,
     key: 'cate-manage',
     icon: renderIcon(AppsIcon)
   },
   {
-    label: '用户管理',
+    label: <RouterLink to="/admin/editPost">用户管理</RouterLink>,
     key: 'user-manage',
     icon: renderIcon(PeopleIcon)
   },
   {
-    label: '评论管理',
+    label: <RouterLink to="/admin/editPost">评论管理</RouterLink>,
     key: 'comment-manage',
     icon: renderIcon(ChatIcon)
   },
   {
-    label: 'TAG管理',
+    label: <RouterLink to="/admin/editPost">TAG管理</RouterLink>,
     key: 'tag-manage',
     icon: renderIcon(TagIcon)
   },
   {
-    label: '网站设置',
+    label: <RouterLink to="/admin/editPost">网站设置</RouterLink>,
     key: 'website',
     icon: renderIcon(SetIcon)
   }
@@ -130,7 +154,9 @@ const state = reactive(
     height: 50px;
     flex: 1;
     line-height: 62px;
-    padding-left: 2em;
+    padding: 0px 2em;
+    display: flex;
+    justify-content: space-between;
   }
 
   .main-flex-m {

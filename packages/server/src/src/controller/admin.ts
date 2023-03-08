@@ -6,7 +6,7 @@
  * @FilePath: \newMylog\packages\server\src\src\controller\admin.ts
  */
 import prisma from "../config/prismaConfig"
-import { HttpGetResp, Login, LoginResp } from "@myblog/web/src/typings/global"
+import { HttpGetResp, Login, LoginResp, getAdminResp } from "@myblog/web/src/typings/global"
 import { dataFormat } from '../../comm/uitls'
 import { jwtSign } from '../../comm/jwt'
 
@@ -35,5 +35,20 @@ export const PostLogin = async (data: Login): Promise<HttpGetResp<LoginResp>> =>
       data: undefined,
       status: false
     }
+  }
+}
+
+// 查询字典信息
+export const getAdmin = async (): Promise<HttpGetResp<getAdminResp>> => {
+  const cateList = await prisma.categorize.findMany({})
+  const webSite = await prisma.system.findMany({})
+  return {
+    code: 200,
+    msg: "查询成功",
+    data: {
+      catelist: cateList,
+      website: webSite
+    },
+    status: true
   }
 }

@@ -13,6 +13,7 @@ import koaBodyParser from "koa-bodyparser";
 import { getAllFilesExport } from './comm/uitls'
 import colors from 'colors';
 import { jwtChecks } from './comm/jwt'
+import whiteList from './comm/whilteList'
 
 class Init {
   public static app: Koa;
@@ -21,8 +22,8 @@ class Init {
     Init.app = app;
     Init.server = server;
     Init.initKoaBodyParser();
-    Init.jwtCheck();
     Init.initLoadRouters();
+    Init.jwtCheck();
   };
   public static async initKoaBodyParser() {
     Init.app.use(koaBodyParser());
@@ -35,11 +36,19 @@ class Init {
     console.log(colors.rainbow('router.....yes'));
   }
   public static async jwtCheck() {
-    console.log(8888);
     Init.app.use((ctx: Koa.Context, next: Function) => {
       const token = ctx.request.headers?.token as string;
-      console.log(jwtChecks(token));
-
+      console.log(ctx.request.url)
+      if (whiteList.some(item => item == ctx.request.url) || jwtChecks(token)) {
+        next();
+      } else {
+        ctx.body = {
+          code: 401,
+          msg: "没有权限",
+          data: undefined,
+          status: false
+        }
+      }
     })
   }
 }
