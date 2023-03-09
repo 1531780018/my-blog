@@ -6,12 +6,14 @@
  * @FilePath: \newMylog\packages\server\src\src\controller\admin.ts
  */
 import prisma from "../config/prismaConfig"
-import { HttpGetResp, Login, LoginResp, getAdminResp } from "@myblog/web/src/typings/global"
+import { HttpGetResp, Login, LoginResp, getAdminResp, PostAdd } from "@myblog/web/src/typings/global"
 import { dataFormat } from '../../comm/uitls'
 import { jwtSign } from '../../comm/jwt'
 
 // 登录接口
 export const PostLogin = async (data: Login): Promise<HttpGetResp<LoginResp>> => {
+  console.log(data);
+
   const GetUser = await prisma.user.findMany({
     where: {
       email: data.email,
@@ -50,5 +52,40 @@ export const getAdmin = async (): Promise<HttpGetResp<getAdminResp>> => {
       website: webSite
     },
     status: true
+  }
+}
+
+export const postAdd = async (data: PostAdd): Promise<HttpGetResp<getAdminResp>> => {
+  const postAdd = await prisma.post.create({
+    data: {
+      title: data.title,
+      content: data.content,
+      categorize: {
+        connect: {
+          id: data.cateId
+        }
+      },
+      author: {
+        connect: {
+          id: data.user.userId
+        }
+      }
+    }
+  })
+
+  if (postAdd) {
+    return {
+      code: 200,
+      msg: "新增成功",
+      data: undefined,
+      status: true
+    }
+  } else {
+    return {
+      code: 500,
+      msg: "新增失败",
+      data: undefined,
+      status: false
+    }
   }
 }

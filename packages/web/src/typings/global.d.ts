@@ -86,3 +86,12 @@ export declare interface getAdminResp {
   catelist: Array,
   website: Array
 }
+
+export declare interface PostAdd {
+  title: string
+  content: string
+  cateId: string,
+  user: {
+    userId: number
+  }
+}

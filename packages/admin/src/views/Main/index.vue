@@ -6,7 +6,7 @@
           <div class="login-form">
             <n-form ref="formRef" :model="state.model" :rules="state.rules">
               <n-form-item path="age" label="用户名">
-                <n-input v-model:value="state.model.username" @keydown.enter.prevent />
+                <n-input v-model:value="state.model.email" @keydown.enter.prevent />
               </n-form-item>
               <n-form-item path="password" label="密码">
                 <n-input v-model:value="state.model.password" type="password" @keydown.enter.prevent />
@@ -31,7 +31,7 @@ const router = useRouter();
 const store = uesUserStore();
 const state = reactive({
   model: {
-    username: "1531780018@qq.com",
+    email: "1531780018@qq.com",
     password: "013580724422"
   },
   rules: {

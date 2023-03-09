@@ -3,7 +3,7 @@
  * @Date: 2023-03-06 21:13:15
  * @LastEditors: Mowang
  * @Description: 
- * @FilePath: \newMylog\packages\admin\src\views\post\postAdd.vue
+ * @FilePath: \newMylog\packages\admin\src\views\Post\postEdit.vue
 -->
 <template>
   <div class="post">
@@ -32,10 +32,10 @@
           <div class="rightSubmit">
             <n-card title="" class="right-box" hoverable>
               <div class="submits">
-                <n-button type="primary">保存文章</n-button>
+                <n-button type="primary" @click="postSubmit()">保存文章</n-button>
               </div>
               <n-form-item label="选择分类" path="user.name" style="width: 100%;">
-                <n-select v-model:value="state.form.cate" :options="options" />
+                <n-select v-model:value="state.form.cate" value-field="id" label-field="name" :options="options" />
               </n-form-item>
               <n-form-item label="TAG" path="user.name" style="width: 100%;">
                 <n-dynamic-tags v-model:value="tags" />
@@ -53,18 +53,40 @@
 <script lang="tsx" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { reactive, ref, shallowRef, onMounted, onBeforeUnmount } from 'vue';
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+import { uesAppStore } from '@/store/app'
+import { postAdd } from '@/api/api'
+const appStore = uesAppStore();
+
+// 从字典里读取所有分类
+const options = appStore.cateList;
 
 const editorRef = shallowRef()
 
+// 文章提交
+const postSubmit = async () => {
+  const postRes = await postAdd({
+    title: state.form.title,
+    content: valueHtml.value,
+    cateId: state.form.cate
+  });
+  if (postRes.data.code == 200) {
+    window.$message.success("新增成功!!")
+    location.reload();
+  } else {
+    window.$message.error("新增失败,检查异常")
+  }
+}
+
+
 // 内容 HTML
-const valueHtml = ref('<p>hello</p>')
+const valueHtml = ref('')
 
 // 模拟 ajax 异步获取内容
 onMounted(() => {
-  setTimeout(() => {
-    valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
-  }, 1500)
+  // setTimeout(() => {
+  //   valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
+  // }, 1500)
 })
 
 const toolbarConfig = {}
@@ -84,21 +106,7 @@ const handleCreated = (editor) => {
 
 
 const tags = ref(['文章', '新闻'])
-const options = [
-  {
-    label: '测试分类1',
-    value: 'song8'
-  }, {
-    label: '测试分类2',
-    value: 'song8'
-  }, {
-    label: '测试分类3',
-    value: 'song8'
-  }, {
-    label: '测试分类4',
-    value: 'song8'
-  },
-]
+
 const state = reactive({
   form: {
     title: "",
