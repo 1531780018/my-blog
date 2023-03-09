@@ -30,7 +30,7 @@ const themeToggle = (v: boolean) => {
 
 // 持久化数据的处理
 onMounted(async () => {
-  if (!appStore.isDict && !userStore.isLogin) {
+  if (!appStore.isDict && userStore.isLogin) {
     const getAdminRes = await getAdmin({});
     if (getAdminRes.data.code == 200) {
       console.log("加载字典")

@@ -37,6 +37,11 @@ export const GetPostQuery = async (data: PostSelect): Promise<HttpGetResp<PageRe
       cateId: dataFormat(data.cateId),
       title: dataFormat(data.search)
     },
+    orderBy: [
+      {
+        updatedAt: 'desc',
+      }
+    ],
     include: {
       author: true
     },

@@ -72,7 +72,9 @@ const postSubmit = async () => {
   });
   if (postRes.data.code == 200) {
     window.$message.success("新增成功!!")
-    location.reload();
+    setTimeout(() => {
+      location.reload();
+    }, 3000)
   } else {
     window.$message.error("新增失败,检查异常")
   }

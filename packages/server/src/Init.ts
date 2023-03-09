@@ -22,8 +22,8 @@ class Init {
     Init.app = app;
     Init.server = server;
     Init.initKoaBodyParser();
-    Init.initLoadRouters();
     Init.jwtCheck();
+    Init.initLoadRouters();
   };
   public static async initKoaBodyParser() {
     Init.app.use(koaBodyParser());
@@ -36,11 +36,11 @@ class Init {
     console.log(colors.rainbow('router.....yes'));
   }
   public static async jwtCheck() {
-    Init.app.use((ctx: Koa.Context, next: Function) => {
+    Init.app.use(async (ctx: Koa.Context, next: Function) => {
       const token = ctx.request.headers?.token as string;
       console.log(jwtChecks(token))
       if (whiteList.some(item => item == ctx.request.url) || jwtChecks(token)) {
-        next();
+        await next();
       } else {
         ctx.body = {
           code: 401,
