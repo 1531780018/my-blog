@@ -27,3 +27,11 @@ export const postAdd = async (data: AllType) => {
     data
   })
 }
+
+export const postPage = async (data: AllType) => {
+  return request({
+    url: `${baseUrl}/api/admin/postPage`,
+    method: "post",
+    data
+  })
+}

@@ -6,7 +6,7 @@
  * @FilePath: \newMylog\packages\server\src\src\controller\admin.ts
  */
 import prisma from "../config/prismaConfig"
-import { HttpGetResp, Login, LoginResp, getAdminResp, PostAdd } from "@myblog/web/src/typings/global"
+import { HttpGetResp, Login, LoginResp, getAdminResp, PostAdd, PostSelect, PageResult } from "@myblog/web/src/typings/global"
 import { dataFormat } from '../../comm/uitls'
 import { jwtSign } from '../../comm/jwt'
 
@@ -87,5 +87,43 @@ export const postAdd = async (data: PostAdd): Promise<HttpGetResp<getAdminResp>>
       data: undefined,
       status: false
     }
+  }
+}
+
+export const postPage = async (data: PostSelect): Promise<HttpGetResp<PageResult>> => {
+  const getPostCount = await prisma.post.count(
+    {
+      where: {
+        cateId: dataFormat(data.cateId),
+        title: dataFormat(data.search)
+      }
+    }
+  )
+  // 获取文章总数
+  const pageResult = await prisma.post.findMany({
+    skip: dataFormat(data.pageCurr) || 0,
+    take: dataFormat(data.pageSize) || 10,
+    where: {
+      cateId: dataFormat(data.cateId),
+      title: dataFormat(data.search)
+    },
+    orderBy: [
+      {
+        id: 'desc',
+      }
+    ],
+    include: {
+      author: true
+    },
+  })
+
+  return {
+    code: 200,
+    msg: "查询成功",
+    data: {
+      pageCount: getPostCount,
+      result: pageResult
+    },
+    status: true,
   }
 }

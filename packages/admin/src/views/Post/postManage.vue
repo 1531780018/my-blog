@@ -1,31 +1,63 @@
 <template>
   <div class="manage">
     <n-card class="manage-content" title="" hoverable>
-      <n-data-table :columns="columns" :data="data" :pagination="pagination" :bordered="false" />
+      <n-data-table :columns="columns" :data="state.dataList" :pagination="pagination" :bordered="false" />
     </n-card>
   </div>
 </template>
 <script lang="tsx" setup>
-import { h, defineComponent } from 'vue'
+import { h, defineComponent, onMounted, reactive } from 'vue'
 import { NButton, useMessage } from 'naive-ui'
 import type { DataTableColumns } from 'naive-ui'
+import { postPage } from '@/api/api'
+
+
+const pagination = reactive({
+  page: 1,
+  pageSize: 10,
+  showSizePicker: false,//每页显示选项
+  pageSizes: [10, 20, 30],
+  itemCount: 100
+})
+
+const page = async () => {
+  const resp = await postPage({
+    pageCurr: pagination.page,
+    pageSize: pagination.pageSize,
+
+  })
+  if (resp.data.code == 200) {
+    state.dataList = resp.data.data.result
+    pagination.itemCount = resp.data.data.pageCount
+
+  }
+}
+
+const state = reactive({
+  dataList: []
+})
+
+onMounted(() => {
+  page()
+})
+
 const columns = [{
   title: '文章ID',
-  key: 'no'
+  key: 'id'
 },
 {
   title: '文章标题',
   key: 'title'
 }, {
   title: '作者',
-  key: 'title'
+  key: 'author.name'
 },
 {
   title: '快速链接',
-  key: 'title'
+  key: ''
 }, {
   title: '操作',
-  key: 'title',
+  key: '',
   render(row) {
     return (
       <div>
@@ -40,24 +72,7 @@ const columns = [{
   }
 },
 ]
-const data = [
-  { no: 3, title: 'Wonderwall', length: '4:18' },
-  { no: 4, title: "Don't Look Back in Anger", length: '4:48' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' },
-  { no: 12, title: 'Champagne Supernova', length: '7:27' }
-]
-const pagination = { pageSize: 10 }
+
 </script>
 <style lang="scss" scoped>
 .manage {

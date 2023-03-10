@@ -1,6 +1,6 @@
 import Application from 'koa';
 import Router from 'koa-router';
-import { PostLogin, getAdmin, postAdd } from '../src/controller/admin';
+import { PostLogin, getAdmin, postAdd, postPage } from '../src/controller/admin';
 import { PostSelect } from '../../../web/src/typings/global'
 import { jwtChecks } from '../comm/jwt'
 
@@ -20,10 +20,12 @@ router.get('/getAdmin', async (ctx: Application.ParameterizedContext) => {
 
 router.post('/postAdd', async (ctx: Application.ParameterizedContext) => {
   const requestData: any = ctx.request.body;
-  console.log(ctx.request.header.token)
-  console.log(jwtChecks(ctx.request.header.token as string));
-
   ctx.body = await postAdd({ ...requestData, user: jwtChecks(ctx.request.header.token as string) });
+});
+
+router.post('/postPage', async (ctx: Application.ParameterizedContext) => {
+  const requestData: any = ctx.request.body;
+  ctx.body = await postPage(requestData);
 });
 
 export default router;
