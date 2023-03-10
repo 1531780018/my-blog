@@ -127,3 +127,96 @@ export const postPage = async (data: PostSelect): Promise<HttpGetResp<PageResult
     status: true,
   }
 }
+
+// 删除文章
+export const postDel = async (data: { id: string }): Promise<HttpGetResp<PageResult>> => {
+  const delResult = await prisma.post.deleteMany(
+    {
+      where: {
+        id: data.id,
+      }
+    }
+  )
+  if (delResult.count > 0) {
+    return {
+      code: 200,
+      msg: "删除成功",
+      data: undefined,
+      status: true,
+    }
+  } else {
+    return {
+      code: 500,
+      msg: "删除失败",
+      data: undefined,
+      status: false,
+    }
+  }
+}
+
+// 查询单个详情的数据 --- 详情用
+export const postDetailId = async (data: { id: string }): Promise<HttpGetResp<PageResult>> => {
+  const result = await prisma.post.findUnique(
+    {
+      where: {
+        id: Number(data.id),
+      }
+    }
+  )
+  if (result) {
+    return {
+      code: 200,
+      msg: "查询成功",
+      data: result,
+      status: true,
+    }
+  } else {
+    return {
+      code: 500,
+      msg: "查询失败",
+      data: undefined,
+      status: false,
+    }
+  }
+
+}
+
+// 文章编辑
+
+export const postEdit = async (data: PostAdd): Promise<HttpGetResp<getAdminResp>> => {
+  const postAdd = await prisma.post.update({
+    data: {
+      title: data.title,
+      content: data.content,
+      categorize: {
+        connect: {
+          id: data.cateId
+        }
+      },
+      author: {
+        connect: {
+          id: data.user.userId
+        }
+      }
+    },
+    where: {
+      id: data.id
+    }
+  })
+
+  if (postAdd) {
+    return {
+      code: 200,
+      msg: "修改成功",
+      data: undefined,
+      status: true
+    }
+  } else {
+    return {
+      code: 500,
+      msg: "修改失败",
+      data: undefined,
+      status: false
+    }
+  }
+}

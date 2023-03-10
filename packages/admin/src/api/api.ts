@@ -35,3 +35,28 @@ export const postPage = async (data: AllType) => {
     data
   })
 }
+
+export const postDel = async (data: AllType) => {
+  return request({
+    url: `${baseUrl}/api/admin/postDel`,
+    method: "post",
+    data
+  })
+}
+
+
+export const postDetailId = async (data: AllType) => {
+  return request({
+    url: `${baseUrl}/api/admin/postDetailId`,
+    method: "post",
+    data
+  })
+}
+
+export const postEdit = async (data: AllType) => {
+  return request({
+    url: `${baseUrl}/api/admin/postEdit`,
+    method: "post",
+    data
+  })
+}

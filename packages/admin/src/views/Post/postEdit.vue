@@ -32,7 +32,8 @@
           <div class="rightSubmit">
             <n-card title="" class="right-box" hoverable>
               <div class="submits">
-                <n-button type="primary" @click="postSubmit()">保存文章</n-button>
+                <n-button v-if="route.query.type == 'edit'" type="primary" @click="postEditSubmit()">保存文章</n-button>
+                <n-button type="primary" @click="postSubmit()" v-else>保存文章</n-button>
               </div>
               <n-form-item label="选择分类" path="user.name" style="width: 100%;">
                 <n-select v-model:value="state.form.cate" value-field="id" label-field="name" :options="options" />
@@ -54,12 +55,18 @@
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { reactive, ref, shallowRef, onMounted, onBeforeUnmount } from 'vue';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import { uesAppStore } from '@/store/app'
-import { postAdd } from '@/api/api'
+import { uesAppStore } from '@/store/app';
+import { useRoute } from 'vue-router'
+import { postAdd, postDetailId, postEdit } from '@/api/api'
+
+const route = useRoute();
+
 const appStore = uesAppStore();
 
 // 从字典里读取所有分类
 const options = appStore.cateList;
+console.log(appStore.cateList, 888);
+
 
 const editorRef = shallowRef()
 
@@ -80,12 +87,43 @@ const postSubmit = async () => {
   }
 }
 
+// 文章编辑
+
+const postEditSubmit = async () => {
+  const postRes = await postEdit({
+    id: state.form.id,
+    title: state.form.title,
+    content: valueHtml.value,
+    cateId: state.form.cate
+  });
+  if (postRes.data.code == 200) {
+    window.$message.success("编辑成功!!")
+    setTimeout(() => {
+      location.reload();
+    }, 3000)
+  } else {
+    window.$message.error("编辑失败,检查异常")
+  }
+}
 
 // 内容 HTML
 const valueHtml = ref('')
 
 // 模拟 ajax 异步获取内容
-onMounted(() => {
+onMounted(async () => {
+  // 如果是编辑的话
+  if (route.query.type == 'edit') {
+    const id = route.query.id;
+    const respDetail = await postDetailId({ id: id });
+    if (respDetail.data.code == 200) {
+      const data = respDetail.data.data;
+      valueHtml.value = data.content;
+      state.form.title = data.title;
+      state.form.id = data.id;
+      state.form.cate = data.cateId
+    }
+  }
+
   // setTimeout(() => {
   //   valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
   // }, 1500)
@@ -111,6 +149,7 @@ const tags = ref(['文章', '新闻'])
 
 const state = reactive({
   form: {
+    id: null,
     title: "",
     content: "",
     cate: ""

@@ -30,6 +30,13 @@ const themeToggle = (v: boolean) => {
 
 // 持久化数据的处理
 onMounted(async () => {
+  if (localStorage.getItem('token')) {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    userStore.setUserInfo({
+      token: localStorage.getItem('token'),
+      userInfo: userInfo
+    })
+  }
   if (!appStore.isDict && userStore.isLogin) {
     const getAdminRes = await getAdmin({});
     if (getAdminRes.data.code == 200) {

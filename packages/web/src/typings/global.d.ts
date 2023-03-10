@@ -88,9 +88,10 @@ export declare interface getAdminResp {
 }
 
 export declare interface PostAdd {
+  id?: number
   title: string
   content: string
-  cateId: string,
+  cateId: string
   user: {
     userId: number
   }
