@@ -113,7 +113,8 @@ export const postPage = async (data: PostSelect): Promise<HttpGetResp<PageResult
       }
     ],
     include: {
-      author: true
+      author: true,
+      categorize: true
     },
   })
 

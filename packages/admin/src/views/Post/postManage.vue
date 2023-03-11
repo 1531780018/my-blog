@@ -56,7 +56,12 @@ const columns = [{
 {
   title: '文章标题',
   key: 'title'
-}, {
+},
+{
+  title: '分类',
+  key: 'categorize.name'
+},
+{
   title: '作者',
   key: 'author.name'
 },
