@@ -12,10 +12,14 @@ const path = require("path")
 
 export default defineConfig({
   plugins: [vue(), vueJsx()],
+  base: "/admin/",
   resolve: {
     // 配置路径别名
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  build: {
+    outDir: "../../dist/docs/admin"
   }
 })

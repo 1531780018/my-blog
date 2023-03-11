@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:css": "tailwindcss -o ./src/styles/tailwind.css --watch",
-    "init:env": "cp -n .sample.env .env",
+    "init:env": "cp -n .sample.env ",
     "clean": "rm -rf node_modules",
     "build:test": "vite build --mode test",
     "build:prod": "vite build --mode production",

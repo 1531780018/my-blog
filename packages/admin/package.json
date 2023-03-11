@@ -1,10 +1,12 @@
 {
-  "name": "admin",
+  "name": "@myblog/admin",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build:test": "vite build --mode test",
+    "build:prod": "vite build --mode production"
   },
   "keywords": [],
   "author": "",

@@ -3,3 +3,5 @@ packages/**/node_modules
 packages/**/prisma/migrations
 packages/**/.env
 /packages/web/dist/
+/packages/admin/.env.production
+/dist/
