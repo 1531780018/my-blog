@@ -257,3 +257,94 @@ export const CatePage = async (data: CateSelect): Promise<HttpGetResp<PageResult
     status: true,
   }
 }
+
+export const cateEdit = async (data: {
+  id: number
+  name: string
+  desc: string
+}): Promise<HttpGetResp<getAdminResp>> => {
+  const postAdd = await prisma.categorize.update({
+    data: {
+      name: data.name,
+      desc: data.desc
+    },
+    where: {
+      id: data.id
+    }
+  })
+
+  if (postAdd) {
+    return {
+      code: 200,
+      msg: "修改成功",
+      data: undefined,
+      status: true
+    }
+  } else {
+    return {
+      code: 500,
+      msg: "修改失败",
+      data: undefined,
+      status: false
+    }
+  }
+}
+
+export const cateAdd = async (data: {
+  name: string
+  desc: string
+}): Promise<HttpGetResp<getAdminResp>> => {
+  const postAdd = await prisma.categorize.create({
+    data: {
+      name: data.name,
+      desc: data.desc
+    }
+  })
+
+  if (postAdd) {
+    return {
+      code: 200,
+      msg: "新增成功",
+      data: undefined,
+      status: true
+    }
+  } else {
+    return {
+      code: 500,
+      msg: "新增失败",
+      data: undefined,
+      status: false
+    }
+  }
+}
+
+export const cateDel = async (data: {
+  id: number
+}): Promise<HttpGetResp<getAdminResp>> => {
+  const postdel = await prisma.post.deleteMany({
+    where: {
+      cateId: data.id,
+    }
+  })
+  const catedel = await prisma.categorize.delete({
+    where: {
+      id: data.id,
+    }
+  })
+
+  if (catedel) {
+    return {
+      code: 200,
+      msg: "删除成功",
+      data: undefined,
+      status: true
+    }
+  } else {
+    return {
+      code: 500,
+      msg: "删除失败",
+      data: undefined,
+      status: false
+    }
+  }
+}

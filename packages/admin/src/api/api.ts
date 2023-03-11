@@ -68,3 +68,27 @@ export const CatePage = async (data: AllType) => {
     data
   })
 }
+
+export const cateEdit = async (data: AllType) => {
+  return request({
+    url: `${baseUrl}/api/admin/cateEdit`,
+    method: "post",
+    data
+  })
+}
+
+export const cateAdd = async (data: AllType) => {
+  return request({
+    url: `${baseUrl}/api/admin/cateAdd`,
+    method: "post",
+    data
+  })
+}
+
+export const cateDel = async (data: AllType) => {
+  return request({
+    url: `${baseUrl}/api/admin/cateDel`,
+    method: "post",
+    data
+  })
+}

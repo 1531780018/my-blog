@@ -1,6 +1,9 @@
 import Application from 'koa';
 import Router from 'koa-router';
-import { PostLogin, getAdmin, postAdd, postPage, postDel, postDetailId, postEdit, CatePage } from '../src/controller/admin';
+import {
+  PostLogin, getAdmin, postAdd, postPage, postDel
+  , postDetailId, postEdit, CatePage, cateEdit, cateAdd, cateDel
+} from '../src/controller/admin';
 import { PostSelect } from '../../../web/src/typings/global'
 import { jwtChecks } from '../comm/jwt'
 
@@ -49,6 +52,24 @@ router.post('/postEdit', async (ctx: Application.ParameterizedContext) => {
 router.post('/CatePage', async (ctx: Application.ParameterizedContext) => {
   const requestData: any = ctx.request.body;
   ctx.body = await CatePage(requestData);
+});
+
+// 修改分类
+router.post('/cateEdit', async (ctx: Application.ParameterizedContext) => {
+  const requestData: any = ctx.request.body;
+  ctx.body = await cateEdit(requestData);
+});
+
+// 新增分类
+router.post('/cateAdd', async (ctx: Application.ParameterizedContext) => {
+  const requestData: any = ctx.request.body;
+  ctx.body = await cateAdd(requestData);
+});
+
+// 删除分类
+router.post('/cateDel', async (ctx: Application.ParameterizedContext) => {
+  const requestData: any = ctx.request.body;
+  ctx.body = await cateDel(requestData);
 });
 
 export default router;
