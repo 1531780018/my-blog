@@ -38,7 +38,7 @@ class Init {
   public static async jwtCheck() {
     Init.app.use(async (ctx: Koa.Context, next: Function) => {
       const token = ctx.request.headers?.token as string;
-      if (whiteList.some(item => item == ctx.request.url) || jwtChecks(token)) {
+      if (whiteList.some(item => ctx.request.url.indexOf(item) > -1) || jwtChecks(token)) {
         await next();
       } else {
         ctx.body = {
