@@ -60,3 +60,11 @@ export const postEdit = async (data: AllType) => {
     data
   })
 }
+
+export const CatePage = async (data: AllType) => {
+  return request({
+    url: `${baseUrl}/api/admin/CatePage`,
+    method: "post",
+    data
+  })
+}

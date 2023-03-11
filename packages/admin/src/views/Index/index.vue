@@ -87,7 +87,7 @@ const menuOptions2: MenuOption[] = [
     icon: renderIcon(BookIcon)
   },
   {
-    label: <RouterLink to="/admin/editPost">分类管理</RouterLink>,
+    label: <RouterLink to="/admin/cateManage">分类管理</RouterLink>,
     key: 'cate-manage',
     icon: renderIcon(AppsIcon)
   },

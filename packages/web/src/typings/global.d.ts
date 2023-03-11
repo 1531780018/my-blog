@@ -96,3 +96,10 @@ export declare interface PostAdd {
     userId: number
   }
 }
+
+export declare interface CateSelect {
+  name?: string
+  id?: number
+  pageSize?: number  // 每页显示条数
+  pageCurr?: number  // 当前所在页码
+}

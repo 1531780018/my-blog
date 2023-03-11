@@ -36,16 +36,17 @@ onMounted(async () => {
       token: localStorage.getItem('token'),
       userInfo: userInfo
     })
-  }
-  if (!appStore.isDict && userStore.isLogin) {
-    const getAdminRes = await getAdmin({});
-    if (getAdminRes.data.code == 200) {
-      console.log("加载字典")
-      const data = getAdminRes.data.data;
-      appStore.setDict({
-        catelist: data.catelist,
-        website: data.website
-      })
+
+    if (!appStore.isDict && userStore.isLogin) {
+      const getAdminRes = await getAdmin({});
+      if (getAdminRes.data.code == 200) {
+        console.log("加载字典")
+        const data = getAdminRes.data.data;
+        appStore.setDict({
+          catelist: data.catelist,
+          website: data.website
+        })
+      }
     }
   }
 

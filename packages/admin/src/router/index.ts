@@ -15,6 +15,11 @@ const routes = [
         path: '/admin/postManage',
         name: "postManage",
         component: () => import("@/views/Post/postManage.vue"),
+      },
+      {
+        path: '/admin/cateManage',
+        name: "cateManage",
+        component: () => import("@/views/Classify/index.vue"),
       }
     ]
   },

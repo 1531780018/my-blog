@@ -6,7 +6,7 @@
  * @FilePath: \newMylog\packages\server\src\src\controller\admin.ts
  */
 import prisma from "../config/prismaConfig"
-import { HttpGetResp, Login, LoginResp, getAdminResp, PostAdd, PostSelect, PageResult } from "@myblog/web/src/typings/global"
+import { HttpGetResp, Login, LoginResp, getAdminResp, PostAdd, PostSelect, PageResult, CateSelect } from "@myblog/web/src/typings/global"
 import { dataFormat } from '../../comm/uitls'
 import { jwtSign } from '../../comm/jwt'
 
@@ -218,5 +218,42 @@ export const postEdit = async (data: PostAdd): Promise<HttpGetResp<getAdminResp>
       data: undefined,
       status: false
     }
+  }
+}
+
+// 查询分类
+
+export const CatePage = async (data: CateSelect): Promise<HttpGetResp<PageResult>> => {
+  const getPostCount = await prisma.categorize.count(
+    {
+      where: {
+        id: dataFormat(data.id),
+        name: dataFormat(data.name)
+      }
+    }
+  )
+  // 获取文章总数
+  const pageResult = await prisma.categorize.findMany({
+    skip: dataFormat(data.pageCurr) || 0,
+    take: dataFormat(data.pageSize) || 10,
+    where: {
+      id: dataFormat(data.id),
+      name: dataFormat(data.name)
+    },
+    orderBy: [
+      {
+        id: 'asc',
+      }
+    ],
+  })
+
+  return {
+    code: 200,
+    msg: "查询成功",
+    data: {
+      pageCount: getPostCount,
+      result: pageResult
+    },
+    status: true,
   }
 }

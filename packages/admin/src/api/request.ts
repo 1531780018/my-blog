@@ -6,8 +6,7 @@
  * @FilePath: \newMylog\packages\admin\src\api\request.ts
  */
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
-import { useRouter } from "vue-router";
-const router = useRouter();
+import store from "@/store/index";
 
 const service = axios.create({
   baseURL: "http://localhost:8080",
@@ -33,10 +32,9 @@ service.interceptors.request.use((config: any) => {
 // Response interceptors
 service.interceptors.response.use(
   async (response: AxiosResponse) => {
-    console.log(response);
-
     if (response.data.code == 401) {
-      location.href = "/login";
+      store.state['_value'].user.isLogin = false
+      location.href = "#/";
     }
     // do something
     return response;

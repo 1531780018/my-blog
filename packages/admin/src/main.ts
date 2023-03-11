@@ -6,11 +6,11 @@
  * @FilePath: \newMylog\packages\admin\src\main.ts
  */
 import { createApp } from "vue";
+// 引用pinia
+import stroe from './store/index'
 import router from './router/index'
 import App from './App.vue';
 import naiveui from 'naive-ui'
-// 引用pinia
-import stroe from './store/index'
 // 通用字体
 import 'vfonts/Lato.css'
 // 等宽字体
