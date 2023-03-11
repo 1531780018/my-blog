@@ -1,6 +1,6 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/admin',
     name: 'admin',
@@ -19,7 +19,7 @@ const routes = [
       {
         path: '/admin/cateManage',
         name: "cateManage",
-        component: () => import("@/views/Classify/index.vue"),
+        component: () => import("@/views/classify/index.vue"),
       }
     ]
   },
@@ -30,7 +30,18 @@ const routes = [
   },
 ]
 
-export default createRouter({
-  history: createWebHistory(),
+const router = createRouter({
+  history: createWebHashHistory(),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const token: string | null = localStorage.getItem('token')
+  if (!token && to.path !== '/') {
+    next('/')
+  } else {
+    next()
+  }
+})
+
+export default router
