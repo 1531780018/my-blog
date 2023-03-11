@@ -1,6 +1,7 @@
 import request from './request'
 
 // const baseUrl: string = 'http://localhost:2334'
+console.log(process.env)
 const baseUrl = process.env.VITE_APP_URL
 
 interface AllType {

@@ -5,21 +5,26 @@
  * @Description: 
  * @FilePath: \newMylog\packages\admin\vite.config.ts
  */
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import vue from "@vitejs/plugin-vue";
 import vueJsx from '@vitejs/plugin-vue-jsx';
 const path = require("path")
 
-export default defineConfig({
-  plugins: [vue(), vueJsx()],
-  base: "/admin/",
-  resolve: {
-    // 配置路径别名
-    alias: {
-      '@': path.resolve(__dirname, './src'),
+export default ({ mode }: { mode: string }) => {
+  return defineConfig({
+    plugins: [vue(), vueJsx()],
+    define: {
+      'process.env': { ...process.env, ...loadEnv(mode, process.cwd()) }
     },
-  },
-  build: {
-    outDir: "../../dist/docs/admin"
-  }
-})
+    base: "/admin/",
+    resolve: {
+      // 配置路径别名
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
+    build: {
+      outDir: "../../dist/docs/admin"
+    }
+  })
+}
